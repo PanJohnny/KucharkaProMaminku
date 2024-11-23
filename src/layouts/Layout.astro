@@ -1,0 +1,54 @@
+---
+import Header from '../components/Header.astro';
+interface Props {
+    title: string;
+    description: string;
+}
+
+const {title, description} = Astro.props as Props;
+
+const favicon = '/favicon.svg';
+---
+
+<html lang="cs">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href={favicon} />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:image" content={favicon} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={favicon} />
+    </head>
+    <body>
+        <Header />
+        <slot />
+    </body>
+</html>
+
+<style>
+    @import url(https://fonts.bunny.net/css?family=inter:400,500,900);
+
+    :global(:root) {
+        --background-color: #F7D08A;
+        --text-color: #1E1F1E;
+        --pink-light: #E0AC9D;
+        --pink-dark: #A37774;
+        --gray: #5C6D70;
+    }
+
+    body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+</style>

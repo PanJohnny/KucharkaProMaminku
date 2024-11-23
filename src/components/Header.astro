@@ -1,0 +1,172 @@
+---
+import { Image } from "astro:assets";
+import Book from "../resources/book.svg";
+---
+
+<header>
+    <div class="container">
+        <div class="nav">
+            <nav>
+                <ul>
+                    <li><a href="/">Domů</a></li>
+                    <li><a href="/recepty">Recepty</a></li>
+                    <li><a href="/o-nas">O nás</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="title">
+            <h1>Maminčina kuchařka</h1>
+            <p>Ty nejlepší recepty z rodinné kuchařky.</p>
+        </div>
+    </div>
+    <Image src={Book} alt="Kuchařka" aria-hidden class:list={"book"}/>
+</header>
+
+<style>
+    header {
+        background-color: var(--pink-light);
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        transition: background-color 0.3s ease, height 0.3s ease; /* Added transition */
+    }
+
+    .container {
+        padding: 3em;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        transition: padding 0.3s ease; /* Added transition */
+    }
+
+    .book {
+        width: 200px;
+        height: auto;
+        margin-right: 3em;
+        transition: margin-right 0.3s ease; /* Added transition */
+    }
+
+    h1 {
+        font-size: 4em;
+        margin: 0;
+        transition: font-size 0.3s ease; /* Added transition */
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        display: inline;
+        margin-right: 1em;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--gray);
+        font-size: 1.2em;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:visited {
+        color: var(--gray);
+    }
+
+    a.current {
+        color: var(--text-color);
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    @media screen and (max-width: 700px) {
+        .container {
+            padding: 1em;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        .book {
+            width: 100px;
+            margin-right: 1em;
+        }
+
+        a {
+            font-size: 1em;
+        }
+    }
+
+    header.scroll {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        flex-direction: row-reverse;
+        justify-content: left;
+        vertical-align: middle;
+    }
+
+    .scroll .container {
+        flex-direction: row-reverse;
+        padding: 0; /* Remove padding on scroll */
+        flex: 1;
+    }
+
+    .scroll .title {
+        display: flex;
+        align-items: center;
+    }
+
+    .scroll h1 {
+        font-size: 1.5em; /* Change font size on scroll */
+        margin: 0;
+    }
+
+    .scroll .book {
+        margin-right: 1em;
+        height: 3em;
+        width: auto;
+    }
+
+    .scroll p {
+        display: none;
+    }
+
+    .scroll nav {
+        float: right;
+    }
+
+    @media screen and (max-width: 550px) {
+        .scroll h1 {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    const headerElement = document.querySelector('header');
+    const originalHeaderHeight = headerElement ? headerElement.offsetHeight : 0;
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (!header) return;
+        if (window.scrollY > originalHeaderHeight) {
+            header.classList.add('scroll');
+        } else if (window.scrollY <= 100) {
+            header.classList.remove('scroll');
+        }
+    });
+
+    // Add current class to current page
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+        const url = new URL((link as HTMLAnchorElement).href || '');
+        if (url.pathname === window.location.pathname) {
+            link.classList.add('current');
+        }
+    });
+</script>

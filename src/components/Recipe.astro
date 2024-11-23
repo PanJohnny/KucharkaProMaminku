@@ -1,0 +1,75 @@
+---
+import Image from "astro/components/Image.astro";
+
+import bread from "../resources/chleba.jpg";
+import { Icon } from 'astro-icon/components'
+---
+<div class="recipe">
+    <div class="recipe-body">
+        <h2>Chleba</h2>
+        <div class="recipe-info">
+            <span><Icon name="ic:baseline-access-time"/> Čas: 2 hodiny</span>
+            <span><Icon name="ic:outline-workspace-premium" /> Obtížnost: 1/5</span>
+        </div>
+        <p>
+            Jednoduchý chleba na který nepotřebujete žádné speciální ingredience.
+        </p>
+    </div>
+    <Image src={bread} alt="Chléb" />
+</div>
+
+<style>
+    .recipe {
+		background-color: var(--background-color);
+		display: flex;
+		border-radius: 12px;
+		overflow: hidden;
+		width: 100%;
+		margin-bottom: 1em;
+		flex-direction: row-reverse;
+		height: 180px;
+	}
+
+	.recipe h2 {
+		margin-bottom: 5px;
+	}
+
+	.recipe-info {
+		margin-bottom: 1em;
+	}
+
+	.recipe-body {
+		padding: 1em;
+		flex: 1;
+	}
+
+	.recipe:nth-of-type(even) {
+		flex-direction: row;
+	}
+
+	.recipe img {
+		height: auto;
+		width: 30vw;
+		object-fit: cover;
+	}
+
+	@media screen and (max-width: 600px) {
+		.recipe {
+			flex-direction: column-reverse;
+			height: 400px;
+		}
+
+		.recipe:nth-of-type(even) {
+			flex-direction: column-reverse;
+		}
+
+		.recipe img {
+			width: 100%;
+		}
+	}
+
+	[data-icon] {
+		vertical-align: text-top;
+		font-size: 1.2em;
+	}
+</style>
