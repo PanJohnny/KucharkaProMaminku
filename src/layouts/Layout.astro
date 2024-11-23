@@ -1,20 +1,25 @@
 ---
+import { undefined } from 'astro:schema';
 import Header from '../components/Header.astro';
 import { ViewTransitions } from 'astro:transitions';
 interface Props {
     title: string;
     description: string;
+    overwriteTitle?: boolean;
+    image?: string;
 }
 
-const {title, description} = Astro.props as Props;
+const {title, description, overwriteTitle, image} = Astro.props as Props;
 
-const favicon = '/favicon.svg';
+const favicon = image || '/favicon.svg';
+
+let hDesc = Astro.props.description || "To nejlepší z rodinné kuchařky";
 ---
 
 <html lang="cs">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href={favicon} />
+        <link rel="icon" type="image/svg+xml" href={"/favicon.svg"} />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
@@ -30,7 +35,7 @@ const favicon = '/favicon.svg';
         <ViewTransitions />
     </head>
     <body>
-        <Header />
+        <Header title={overwriteTitle?title:"Maminčina kuchařka"} description={hDesc}/>
         <slot />
     </body>
 </html>

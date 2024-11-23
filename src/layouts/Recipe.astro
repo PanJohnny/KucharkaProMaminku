@@ -1,0 +1,325 @@
+---
+import Layout from "./Layout.astro";
+import { Icon } from "astro-icon/components";
+interface Props {
+    name: string;
+    ingredients: string[];
+    difficulty: number /* 1-5 */;
+    time: number /* in minutes */;
+    description: string;
+    image: string;
+    tags: string[];
+    portions: number;
+    portion_type: string;
+}
+
+const {
+    name,
+    tags,
+    ingredients,
+    difficulty,
+    time,
+    description,
+    image,
+    portion_type, // @ts-ignore
+} = Astro.props["content"] as Props;
+
+// @ts-ignore
+let { portions } = Astro.props["content"] as Props;
+
+const type_plurals: any = {
+    kus: ["kusy", "kusů"],
+    lžíce: ["lžíce", "lžic"],
+    lžička: ["lžičky", "lžiček"],
+    hrnek: ["hrnky", "hrnků"],
+    sklenice: ["sklenice", "sklenic"],
+    porce: ["porce", "porcí"],
+};
+
+function pluralize(n: number, type: string): string {
+    if (n === 1) {
+        return type;
+    }
+    if (n < 5) {
+        return type_plurals[type][0];
+    }
+    return type_plurals[type][1];
+}
+---
+
+<Layout title={name} description={description} overwriteTitle image={image}>
+    <main class="basic-info">
+        <div class="recipe">
+            <div class="recipe-body">
+                <slot />
+            </div>
+            <img src={image} alt={name} />
+        </div>
+
+        <div class="ingredients">
+            <div class="recipe-info">
+                <span
+                    ><Icon name="ic:baseline-access-time" /> Čas: {time} minut</span
+                >
+                <span
+                    ><Icon name="ic:outline-workspace-premium" /> Obtížnost: {
+                        difficulty
+                    }/5</span
+                >
+            </div>
+            <h3>Ingredience</h3>
+            <div class="portion-tool">
+                Na
+                <div class="portions">
+                    <button id="dec"
+                        ><Icon name="ic:baseline-keyboard-arrow-down" /></button
+                    >
+                    <input
+                        type="number"
+                        name="portions"
+                        id="count"
+                        value={portions}
+                    />
+                    <button id="inc"
+                        ><Icon name="ic:baseline-keyboard-arrow-up" /></button
+                    >
+                </div>
+                <span id="portion_type"
+                    >{pluralize(portions, portion_type)}</span
+                >
+            </div>
+            <ul id="ingredients">
+                {
+                    ingredients.map((ingredient) => (
+                        <li>
+                            <input
+                                type="checkbox"
+                                id={ingredient}
+                                name={ingredient}
+                            />
+                            <label for={ingredient}>{ingredient}</label>
+                        </li>
+                    ))
+                }
+            </ul>
+            <h3>Klíčová slova</h3>
+            <div class="tags">
+                {tags.map((tag) => <div class="tag">{tag}</div>)}
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .basic-info {
+        display: flex;
+        flex-direction: row;
+        background-color: var(--gray);
+    }
+
+    .ingredients {
+        margin: 20px;
+        padding: 2em;
+        border-radius: 12px;
+        background-color: var(--background-color);
+    }
+
+    .recipe {
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        background-color: var(--background-color);
+        padding: 2em;
+        border-radius: 12px;
+    }
+
+    .recipe-info {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        width: 300px;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .tag {
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin: 5px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        max-height: 400px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    input[type="number"] {
+        width: 20px;
+        margin-right: 10px;
+        padding: 12px;
+        -moz-appearance: textfield;
+        outline: none;
+        margin: 0;
+        border: unset;
+        outline: unset;
+    }
+    .portion-tool {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    button {
+        border: unset;
+        outline: unset;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: white;
+        color: var(--text-color);
+    }
+
+    .portions {
+        display: inline-flex;
+        flex-direction: row;
+        border: 1px solid white;
+        border-radius: 12px;
+        background-color: white;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    /* Hide the number increment decrement decoration */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    @media screen and (max-width: 600px) {
+        .basic-info {
+            flex-direction: column-reverse;
+        }
+
+        .recipe {
+            margin: 10px;
+        }
+
+        img {
+            max-height: 200px;
+        }
+    }
+</style>
+
+<script>
+    const type_plurals: any = {
+        kus: ["kusy", "kusů"],
+        lžíce: ["lžíce", "lžic"],
+        lžička: ["lžičky", "lžiček"],
+        hrnek: ["hrnky", "hrnků"],
+        sklenice: ["sklenice", "sklenic"],
+        porce: ["porce", "porcí"],
+    };
+
+    function pluralize(n: number, type: string): string {
+        if (n === 1) {
+            return type;
+        }
+        if (n < 5) {
+            return type_plurals[type][0];
+        }
+        return type_plurals[type][1];
+    }
+
+    const inc = document.getElementById("inc");
+    const dec = document.getElementById("dec");
+    const input = document.querySelector("#count");
+    const portionType = document.querySelector("#portion_type");
+    const originalPortions = parseInt((input as HTMLInputElement).value);
+    const originalPortionType = (portionType as HTMLElement).innerText;
+
+    inc?.addEventListener("click", () => {
+        if (input) {
+            (input as HTMLInputElement).value = (
+                parseInt((input as HTMLInputElement).value) + 1
+            ).toString();
+            // invoke input event to update the portion type
+            const event = new Event("input");
+            input?.dispatchEvent(event);
+        }
+    });
+
+    dec?.addEventListener("click", () => {
+        if (input && parseInt((input as HTMLInputElement).value) > 1) {
+            (input as HTMLInputElement).value = (
+                parseInt((input as HTMLInputElement).value) - 1
+            ).toString();
+            // invoke input event to update the portion type
+            const event = new Event("input");
+            input?.dispatchEvent(event);
+        }
+    });
+
+    const ingredients = document.querySelector("#ingredients");
+    // original list, only the current innerText of each li
+    const originalList: string[] = [];
+    ingredients?.querySelectorAll("li").forEach((li) => {
+        originalList.push(li.innerText);
+    });
+
+    function updateIngredients(multiplier: number) {
+        // Detect numbers in the ingredients innerText (li) and multiply them
+        ingredients?.querySelectorAll("label").forEach((li, index) => {
+            const originalText = originalList[index];
+            const matches = originalText.match(/\d+/g);
+            if (matches) {
+                let newText = originalText;
+                matches.forEach((match) => {
+                    const newNumber = parseInt(match) * multiplier;
+                    newText = newText.replace(match, newNumber.toString());
+                });
+                li.innerText = newText;
+            }
+        });
+    }
+
+    input?.addEventListener("input", () => {
+        let strVal = (input as HTMLInputElement).value;
+        if (strVal === "") {
+            strVal = "1";
+        }
+        let val = parseInt(strVal);
+        if (input && val < 1) {
+            val = 1;
+            (input as HTMLInputElement).value = "1";
+        }
+        updateIngredients(val);
+        (portionType as HTMLElement).innerText = pluralize(
+            val,
+            originalPortionType,
+        );
+    });
+</script>

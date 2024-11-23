@@ -1,6 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import Book from "../resources/book.svg";
+
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+let title = Astro.props.title || "Maminčina kuchařka";
+let description = Astro.props.description || "To nejlepší z rodinné kuchařky";
 ---
 
 <header>
@@ -15,11 +23,11 @@ import Book from "../resources/book.svg";
             </nav>
         </div>
         <div class="title">
-            <h1>Maminčina kuchařka</h1>
-            <p>Ty nejlepší recepty z rodinné kuchařky.</p>
+            <h1>{title}</h1>
+            <p>{description}</p>
         </div>
     </div>
-    <Image src={Book} alt="Kuchařka" aria-hidden class:list={"book"}/>
+    <Image class="book" src={Book} alt="Maminčina kuchařka" />
 </header>
 
 <style>
@@ -29,7 +37,9 @@ import Book from "../resources/book.svg";
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        transition: background-color 0.3s ease, height 0.3s ease; /* Added transition */
+        transition:
+            background-color 0.3s ease,
+            height 0.3s ease; /* Added transition */
     }
 
     .container {
@@ -98,7 +108,8 @@ import Book from "../resources/book.svg";
         }
 
         a {
-            font-size: 1em;
+            font-size: 1.2em;
+            padding-top: 10px;
         }
     }
 
@@ -149,24 +160,23 @@ import Book from "../resources/book.svg";
 </style>
 
 <script>
-    const headerElement = document.querySelector('header');
-    const originalHeaderHeight = headerElement ? headerElement.offsetHeight : 0;
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
+    const header = document.querySelector("header");
+    const originalHeaderHeight = header ? header.offsetHeight : 0;
+    window.addEventListener("scroll", () => {
         if (!header) return;
-        if (window.scrollY > originalHeaderHeight) {
-            header.classList.add('scroll');
-        } else if (window.scrollY <= 100) {
-            header.classList.remove('scroll');
+        if (window.scrollY > originalHeaderHeight + 56 * 2) {
+            header.classList.add("scroll");
+        } else if (window.scrollY < 56) {
+            header.classList.remove("scroll");
         }
     });
 
     // Add current class to current page
-    const links = document.querySelectorAll('nav a');
-    links.forEach(link => {
-        const url = new URL((link as HTMLAnchorElement).href || '');
+    const links = document.querySelectorAll("nav a");
+    links.forEach((link) => {
+        const url = new URL((link as HTMLAnchorElement).href || "");
         if (url.pathname === window.location.pathname) {
-            link.classList.add('current');
+            link.classList.add("current");
         }
     });
 </script>

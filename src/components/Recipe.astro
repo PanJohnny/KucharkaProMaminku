@@ -4,19 +4,21 @@ import Image from "astro/components/Image.astro";
 import bread from "../resources/chleba.jpg";
 import { Icon } from 'astro-icon/components'
 ---
-<div class="recipe">
-    <div class="recipe-body">
-        <h2>Chleba</h2>
-        <div class="recipe-info">
-            <span><Icon name="ic:baseline-access-time"/> Čas: 2 hodiny</span>
-            <span><Icon name="ic:outline-workspace-premium" /> Obtížnost: 1/5</span>
+<a href="/recept/chleba">
+    <div class="recipe">
+        <div class="recipe-body">
+            <h2>Chleba</h2>
+            <div class="recipe-info">
+                <span><Icon name="ic:baseline-access-time"/> Čas: 2 hodiny</span>
+                <span><Icon name="ic:outline-workspace-premium" /> Obtížnost: 1/5</span>
+            </div>
+            <p>
+                Jednoduchý chleba na který nepotřebujete žádné speciální ingredience.
+            </p>
         </div>
-        <p>
-            Jednoduchý chleba na který nepotřebujete žádné speciální ingredience.
-        </p>
+        <Image src={bread} alt="Chléb" />
     </div>
-    <Image src={bread} alt="Chléb" />
-</div>
+</a>
 
 <style>
     .recipe {
@@ -72,4 +74,8 @@ import { Icon } from 'astro-icon/components'
 		vertical-align: text-top;
 		font-size: 1.2em;
 	}
+
+    a {
+        all: unset;
+    }
 </style>
