@@ -1,23 +1,31 @@
 ---
-import Image from "astro/components/Image.astro";
-
-import bread from "../resources/chleba.jpg";
 import { Icon } from 'astro-icon/components'
+
+interface Props {
+	title: string;
+	time: string;
+	difficulty: string;
+	description: string;
+	image: string;
+	link: string;
+}
+
+const { title, time, difficulty, description, image, link } = Astro.props as Props;
 ---
-<a href="/recept/chleba">
-    <div class="recipe">
-        <div class="recipe-body">
-            <h2>Chleba</h2>
-            <div class="recipe-info">
-                <span><Icon name="ic:baseline-access-time"/> Čas: 2 hodiny</span>
-                <span><Icon name="ic:outline-workspace-premium" /> Obtížnost: 1/5</span>
-            </div>
-            <p>
-                Jednoduchý chleba na který nepotřebujete žádné speciální ingredience.
-            </p>
-        </div>
-        <Image src={bread} alt="Chléb" />
-    </div>
+<a href={link}>
+	<div class="recipe">
+		<div class="recipe-body">
+			<h2>{title}</h2>
+			<div class="recipe-info">
+				<span><Icon name="ic:baseline-access-time"/> Čas: {time} minut</span>
+				<span><Icon name="ic:outline-workspace-premium" /> Obtížnost: {difficulty}/5</span>
+			</div>
+			<p>
+				{description}
+			</p>
+		</div>
+		<img src={image} alt={title} />
+	</div>
 </a>
 
 <style>
@@ -30,6 +38,7 @@ import { Icon } from 'astro-icon/components'
 		margin-bottom: 1em;
 		flex-direction: row-reverse;
 		height: 180px;
+		cursor: pointer;
 	}
 
 	.recipe h2 {
