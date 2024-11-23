@@ -259,7 +259,6 @@ function pluralize(n: number, type: string): string {
     const dec = document.getElementById("dec");
     const input = document.querySelector("#count");
     const portionType = document.querySelector("#portion_type");
-    const originalPortions = parseInt((input as HTMLInputElement).value);
     const originalPortionType = (portionType as HTMLElement).innerText;
 
     inc?.addEventListener("click", () => {
