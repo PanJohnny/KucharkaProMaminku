@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.astro';
+import { ViewTransitions } from 'astro:transitions';
 interface Props {
     title: string;
     description: string;
@@ -26,6 +27,7 @@ const favicon = '/favicon.svg';
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={favicon} />
+        <ViewTransitions />
     </head>
     <body>
         <Header />
