@@ -1,34 +1,40 @@
 ---
-import {Octokit} from "octokit";
+import { Octokit } from "octokit";
 
 if (!Astro.cookies.has("github_token") || Astro.request.method != "POST") {
-    return new Response(undefined, {status: 401});
-
+    return new Response(undefined, { status: 401 });
 }
 // @ts-ignore
-const octokit = new Octokit({auth: Astro.cookies.get("github_token").value});
+const octokit = new Octokit({ auth: Astro.cookies.get("github_token").value });
 
 try {
     const data = await Astro.request.json();
     // @ts-ignore
-    const {data: {sha}} = await octokit.rest.repos.getContent({
-        owner: 'PanJohnny',
-        repo: 'KucharkaProMaminku',
-        path: `src/pages/recept/${data.recept}.md`
-    });
+    let sha;
+    try {
+        const response = await octokit.rest.repos.getContent({
+            owner: "PanJohnny",
+            repo: "KucharkaProMaminku",
+            path: `src/pages/recept/${data.recept}.md`,
+        });
+        // @ts-ignore
+        sha = response.data.sha;
+    } catch (error) {
+        // ignore
+    }
 
     // Create the commit
     await octokit.rest.repos.createOrUpdateFileContents({
-        owner: 'PanJohnny',
-        repo: 'KucharkaProMaminku',
+        owner: "PanJohnny",
+        repo: "KucharkaProMaminku",
         path: `src/pages/recept/${data.recept}.md`,
         message: "Úprava receptu " + data.recept,
-        content: Buffer.from(data.raw).toString('base64'),
+        content: Buffer.from(data.raw).toString("base64"),
         sha: sha,
     });
 
-    return new Response("Success!", {status: 200});
+    return new Response("Success!", { status: 200 });
 } catch (error) {
-    return new Response(error as string, {status: 413});
+    return new Response(error as string, { status: 413 });
 }
 ---
