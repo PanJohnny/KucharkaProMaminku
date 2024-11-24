@@ -1,4 +1,3 @@
-
 ---
 layout: "../../layouts/Recipe.astro"
 name: "Chleba"
