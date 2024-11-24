@@ -98,7 +98,7 @@ function f(s: string) {
         name="ingredients"
         id="ingredients"
         placeholder="Jednotlivé ingredience oddělujte novými řádky"
-        >{f("ingredients").map((ing: string) => ing + "\n")}</textarea
+        >{f("ingredients")?f("ingredients").map((ing: string) => ing + "\n"):undefined}</textarea
     >
     <p>
         Text postupu využívá formátování markdownu, návod <a
