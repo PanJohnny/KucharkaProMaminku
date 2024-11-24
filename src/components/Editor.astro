@@ -253,12 +253,11 @@ function f(s: string) {
         const confirmSubmit = confirm("Opravdu chcete odeslat změny?");
         if (!confirmSubmit) return;
 
-        const recipeLink = link ? link.split("/").pop()?.replace(".md", "") : name.value.toLowerCase().replace(/\s+/g, "-");
+        const recipeLink = link ? link.split("/").pop()?.replace(".md", "") : name.value.toLowerCase().replace(/\s+/g, "-").normalize('NFKD').replace(/[^\w]/g, '');
 
         const data = {
-            recept: encodeURI(recipeLink),
-            raw: `
----
+            recept: recipeLink,
+            raw: `---
 layout: "../../layouts/Recipe.astro"
 name: "${name.value}"
 description: "${description.value}"
