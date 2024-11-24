@@ -288,7 +288,7 @@ ${body.value}
         ok.addEventListener("click", async () => {
             dialog.close();
             try {
-                const response = await fetch("/commit", {
+                const response = await fetch("/admin/commit", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
