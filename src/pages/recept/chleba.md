@@ -19,6 +19,5 @@ Domácí chléb sypaný kmínem je voňavý, křupavý a nepřekonatelný. Nejle
 3. Pak těsto propracujeme a vytvarujeme z něj bochník. Na plech s pečicím papírem položíme bochánek a necháme přikrytý utěrkou opět kynout, asi 30 minut.
 4. Předehřejeme troubu na 225 °C, bochánek na povrchu třikrát nařízneme ostrým nožem, potřeme vodou (nebo rozšlehaným vejcem) a posypeme kmínem.
 5. Dáme péct do spodní části trouby na 15 minut, potom teplotu snížíme na 200 °C a dopečeme asi 35 minut.
-
-Test
+    
     
