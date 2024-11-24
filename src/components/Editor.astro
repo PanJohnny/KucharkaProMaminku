@@ -99,7 +99,11 @@ function f(s: string) {
         placeholder="Jednotlivé ingredience oddělujte novými řádky"
         >{f("ingredients").map((ing: string) => ing + "\n")}</textarea
     >
-    <p>Text postupu využívá formátování markdownu, návod <a href="https://www.markdownguide.org/basic-syntax/">zde</a>.</p>
+    <p>
+        Text postupu využívá formátování markdownu, návod <a
+            href="https://www.markdownguide.org/basic-syntax/">zde</a
+        >.
+    </p>
     <input type="button" value="Odeslat změny" id="submit" />
 </div>
 
@@ -187,7 +191,9 @@ function f(s: string) {
     const body = document.getElementById("body") as HTMLTextAreaElement;
     const tags = document.getElementById("tags") as HTMLInputElement;
     const count = document.getElementById("count") as HTMLInputElement;
-    const portionType = document.getElementById("portion_type") as HTMLInputElement;
+    const portionType = document.getElementById(
+        "portion_type",
+    ) as HTMLInputElement;
 
     const sim = document.getElementById("sim") as HTMLInputElement;
 
@@ -199,7 +205,18 @@ function f(s: string) {
         if (win) win.onload = sync;
     });
 
-    const elements = [name, description, image, time, difficulty, ingredients, body, tags, count, portionType];
+    const elements = [
+        name,
+        description,
+        image,
+        time,
+        difficulty,
+        ingredients,
+        body,
+        tags,
+        count,
+        portionType,
+    ];
 
     elements.forEach((element) => {
         element.addEventListener("input", sync);
@@ -228,4 +245,87 @@ function f(s: string) {
             "*",
         );
     }
+
+    const submit = document.getElementById("submit") as HTMLInputElement;
+
+    submit.addEventListener("click", async () => {
+        const confirmSubmit = confirm("Opravdu chcete odeslat změny?");
+        if (!confirmSubmit) return;
+
+        const data = {
+            recept: encodeURI(name.value.toLowerCase().replace(/\s+/g, "-")),
+            raw: `
+---
+layout: "../../layouts/Recipe.astro"
+name: "${name.value}"
+description: "${description.value}"
+tags: ${JSON.stringify(tags.value.split(",").map((tag: string) => tag.trim()))}
+difficulty: ${difficulty.value}
+time: ${time.value}
+portions: ${count.value}
+portion_type: "${portionType.value}"
+image: "${image.value}"
+ingredients: ${JSON.stringify(ingredients.value.split("\n").filter((ing: string) => ing.trim() !== ""))}
+---
+
+${body.value}
+    `,
+        };
+
+        // Create a dialog popup that will show the data, to double check
+        const dialog = document.createElement("dialog");
+        dialog.innerHTML = `<h2>Udělejte poslední kontrolu</h2>\n<pre>${data.raw}</pre>
+    <button id='ok'>OK</button> <button id='cancel'>Zrušit</button>`;
+        document.body.appendChild(dialog);
+        dialog.showModal();
+
+        const ok = document.getElementById("ok") as HTMLButtonElement;
+        const cancel = document.getElementById("cancel") as HTMLButtonElement;
+
+        ok.addEventListener("click", async () => {
+            dialog.close();
+            try {
+                const response = await fetch("/commit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    alert("Změny byly úspěšně odeslány!");
+                } else {
+                    alert("Nastala chyba při odesílání změn.");
+                }
+            } catch (error) {
+                alert("Nastala chyba při odesílání změn.");
+            }
+        });
+
+        cancel.addEventListener("click", () => {
+            dialog.close();
+            alert("Změny nebyly odeslány.");
+        });
+    });
 </script>
+
+<style is:inline>
+    dialog {
+        background-color: white;
+        padding: 1em;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-width: 90vw !important;
+    }
+
+    dialog button {
+        background-color: yellow;
+        color: var(--text-color);
+        border: unset;
+        border-radius: 12px;
+        padding: 0.5em 1em;
+        cursor: pointer;
+    }
+</style>
