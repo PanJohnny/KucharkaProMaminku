@@ -1,0 +1,45 @@
+---
+import Editor from "../../components/Editor.astro";
+import Layout from "../../layouts/Layout.astro"
+if (!Astro.cookies.has("github_token")) {
+    return Astro.rewrite("/admin/login");
+}
+
+const r = Astro.url.searchParams.get("r");
+if (!r) {
+    return Astro.redirect("/admin/");
+}
+
+if (!r.startsWith("/recept/") || r.includes("..")) {
+    return Astro.redirect("/ne");
+}
+
+const recipe = (await Astro.glob("../recept/*.md")).find(a => a.url === r);
+if (!recipe) {
+    return Astro.redirect("/admin/");
+}
+---
+
+<Layout title="Administrace" description="Správa receptů">
+    <main>
+        <div class="float">
+            <Editor frontmatter={recipe.frontmatter} body={recipe.rawContent()}/>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    main {
+        background-color: var(--gray);
+        padding: 2em;
+    }
+
+    .float {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--background-color);
+        padding: 2em;
+        border-radius: 12px;
+        margin-bottom: 2em;
+    }
+</style>

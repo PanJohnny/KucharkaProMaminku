@@ -1,0 +1,231 @@
+---
+interface Props {
+    frontmatter?: any;
+    body?: string;
+}
+const { frontmatter, body } = Astro.props as Props;
+
+function f(s: string) {
+    if (frontmatter && frontmatter[s]) {
+        return frontmatter[s];
+    }
+}
+---
+
+<div class="editor">
+    <input type="button" value="Otevřít aktualizující se ukázku" id="sim" />
+    <input
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Název"
+        value={f("name")}
+        class="title"
+    />
+    <label for="description">Popis:</label>
+    <input
+        type="text"
+        name="description"
+        id="description"
+        placeholder="Popis"
+        value={f("description")}
+    />
+    <label for="image">URL obrázku:</label>
+    <input
+        type="url"
+        name="image"
+        id="image"
+        placeholder="Odkaz na obrázek"
+        value={f("image")}
+    />
+    <label for="time">Čas přípravy:</label>
+    <div class="line">
+        <input
+            type="number"
+            name="time"
+            id="time"
+            placeholder="Čas přípravy"
+            value={f("time")}
+        />
+        <b>min</b>
+    </div>
+    <label for="difficulty">Obtížnost (1-5):</label>
+    <div class="line">
+        <input
+            type="range"
+            name="difficulty"
+            id="difficulty"
+            min="1"
+            max="5"
+            value={f("difficulty")}
+        />
+        <b><span id="diff-view">{f("difficulty")}</span>/5</b>
+    </div>
+    <label for="tags">Klíčová slova (oddělujte čárkou):</label>
+    <input
+        type="text"
+        name="tags"
+        id="tags"
+        placeholder="Oddělujte čárkou"
+        value={f("tags")}
+    />
+    <label for="count">Počet procí a typ porce</label>
+    <div class="line">
+        <input
+            type="number"
+            name="count"
+            id="count"
+            placeholder="Počet porcí"
+            value={f("portions")}
+        />
+        <input
+            type="text"
+            name="portion_type"
+            id="portion_type"
+            placeholder="kus/porce/..."
+            value={f("portion_type")}
+        />
+    </div>
+    <label for="body">Text:</label>
+    <textarea
+        name="body"
+        id="body"
+        placeholder="Sem napište poznatky o jídle a postup">{body}</textarea
+    >
+    <label for="ingredients">Ingredience:</label>
+    <textarea
+        name="ingredients"
+        id="ingredients"
+        placeholder="Jednotlivé ingredience oddělujte novými řádky"
+        >{f("ingredients").map((ing: string) => ing + "\n")}</textarea
+    >
+    <p>Text postupu využívá formátování markdownu, návod <a href="https://www.markdownguide.org/basic-syntax/">zde</a>.</p>
+    <input type="button" value="Odeslat změny" id="submit" />
+</div>
+
+<style>
+    .editor {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        font-family: "Inter", sans-serif;
+    }
+
+    .editor input[type="button"] {
+        background-color: yellow;
+        color: var(--text-color);
+        border: unset;
+        border-radius: 12px;
+        padding: 0.5em 1em;
+        cursor: pointer;
+    }
+
+    #submit {
+        background-color: chocolate;
+        color: white;
+    }
+
+    .editor input,
+    .editor textarea {
+        border: 1px solid var(--gray);
+        border-radius: 12px;
+        padding: 0.5em;
+        font-family: inherit;
+        font-size: 1em;
+        color: var(--text-color);
+        background-color: white;
+    }
+
+    .editor input.title {
+        font-size: 2em;
+        font-weight: 900;
+    }
+
+    .editor label {
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .editor textarea {
+        resize: vertical;
+        height: 250px;
+        min-height: 100px;
+    }
+
+    .line {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+    }
+
+    .line :first-child {
+        flex: 1;
+    }
+</style>
+
+<script>
+    const diff = document.getElementById("difficulty") as HTMLInputElement;
+    const diffView = document.getElementById("diff-view") as HTMLSpanElement;
+    diffView.innerText = diff.value;
+
+    diff.addEventListener("input", () => {
+        diffView.innerText = diff.value;
+    });
+
+    const name = document.getElementById("name") as HTMLInputElement;
+    const description = document.getElementById(
+        "description",
+    ) as HTMLInputElement;
+    const image = document.getElementById("image") as HTMLInputElement;
+    const time = document.getElementById("time") as HTMLInputElement;
+    const difficulty = document.getElementById(
+        "difficulty",
+    ) as HTMLInputElement;
+    const ingredients = document.getElementById(
+        "ingredients",
+    ) as HTMLTextAreaElement;
+    const body = document.getElementById("body") as HTMLTextAreaElement;
+    const tags = document.getElementById("tags") as HTMLInputElement;
+    const count = document.getElementById("count") as HTMLInputElement;
+    const portionType = document.getElementById("portion_type") as HTMLInputElement;
+
+    const sim = document.getElementById("sim") as HTMLInputElement;
+
+    let win: Window | null = null;
+    sim.addEventListener("click", () => {
+        // open /admin/sim as popup, keep the window object to update it using sendMessage
+        win = window.open("/admin/sim", "sim", "width=400,height=400");
+        // send the current recipe to the popup
+        if (win) win.onload = sync;
+    });
+
+    const elements = [name, description, image, time, difficulty, ingredients, body, tags, count, portionType];
+
+    elements.forEach((element) => {
+        element.addEventListener("input", sync);
+    });
+
+    function sync() {
+        win?.postMessage(
+            {
+                frontmatter: {
+                    name: name?.value,
+                    description: description?.value,
+                    image: image?.value,
+                    time: time?.value,
+                    difficulty: difficulty?.value,
+                    ingredients: ingredients?.value
+                        .split("\n")
+                        .filter((ing: string) => ing.trim() !== ""),
+                    tags: tags?.value
+                        .split(",")
+                        .map((tag: string) => tag.trim()),
+                    portions: count?.value,
+                    portion_type: portionType?.value,
+                },
+                body: body?.value,
+            },
+            "*",
+        );
+    }
+</script>

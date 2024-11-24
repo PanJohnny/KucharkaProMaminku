@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro"
+---
+
+<Layout title="Přihlašte se" description="Adminsitrace vyžaduje přihlášení">
+    <main>
+        <div class="login">
+            <div class="button">
+                <a href={"https://github.com/login/oauth/authorize?scope=repo&client_id=" + import.meta.env.GH_ID} class="login">
+                    Přes&nbsp;<img 
+                    src="https://github.githubassets.com/favicon.ico" alt="Přihlásit přes GitHub"
+                    width="20" />&nbsp;GitHub!</a>
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    main {
+        background-color: var(--gray);
+        padding: 2em;
+        text-align: center;
+    }
+
+    .login {
+        display: flex;
+        flex-direction: row;
+        background-color: var(--background-color);
+        padding: 2em;
+        border-radius: 12px;
+    }
+
+    .button a {
+        text-decoration: none;
+        color: var(--text-color);
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 12px;
+        background-color: white;
+        vertical-align: middle;
+    }
+
+    .button {
+        filter: invert(1);
+    }
+</style>

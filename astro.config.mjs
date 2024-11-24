@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/static';
+import vercel from '@astrojs/vercel/serverless';
 
 import icon from 'astro-icon';
 
@@ -8,4 +8,5 @@ import icon from 'astro-icon';
 export default defineConfig({
   integrations: [icon()],
   adapter: vercel(),
+  output: 'server'
 });

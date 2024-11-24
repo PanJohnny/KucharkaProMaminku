@@ -35,6 +35,12 @@ let hDesc = Astro.props.description || "To nejlepší z rodinné kuchařky";
         <Header title={overwriteTitle?title:"Maminčina kuchařka"} description={hDesc}/>
         <slot />
     </body>
+    <footer>
+        <p>Copyright &copy; Štefančovi 2024</p> 
+        <p><a href="/license">Licenční podmínky</a></p>
+        <p><a href="/admin"> &#128100; Administrace</a></p>
+   
+    </footer>
 </html>
 
 <style>
@@ -54,5 +60,13 @@ let hDesc = Astro.props.description || "To nejlepší z rodinné kuchařky";
         font-family: 'Inter', sans-serif;
         margin: 0;
         padding: 0;
+    }
+
+    footer {
+        background-color: var(--pink-light);
+        color: var(--text-color);
+        font-weight: 500;
+        text-align: center;
+        padding: 1em;   
     }
 </style>

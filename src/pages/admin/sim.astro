@@ -1,0 +1,107 @@
+---
+import Recipe from "../../layouts/Recipe.astro";
+// Recipe simulator
+---
+
+<Recipe
+    content={{
+        name: "Recept",
+        ingredients: [],
+        difficulty: 1,
+        time: 10,
+        description: "Popis receptu",
+        image: "https://http.cat/404",
+        tags: [],
+        portions: 1,
+        portion_type: "kus",
+    }}
+>
+    <ol>
+        <li>Dejte do trouby</li>
+        <li>Po 10 minutách vyndejte</li>
+        <li>Nic se nestalo</li>
+    </ol>
+</Recipe>
+
+<script>
+    import { marked } from "marked";
+
+    window.addEventListener("message", (event) => {
+        const { frontmatter, body } = event.data;
+
+        if (frontmatter) {
+            const titleElement = document.querySelector("h1");
+            if (titleElement) titleElement.textContent = frontmatter.name;
+
+            const descriptionElement = document.querySelector("header p");
+            if (descriptionElement)
+                descriptionElement.textContent = frontmatter.description;
+
+            const imageElement = document.querySelector(
+                ".recipe img",
+            ) as HTMLImageElement;
+            if (imageElement) imageElement.src = frontmatter.image;
+
+            const timeElement = document.querySelector(
+                ".recipe-info > span:nth-child(1)",
+            )?.childNodes[1] as HTMLElement;
+            if (timeElement)
+                timeElement.textContent = ` Čas: ${frontmatter.time} minut`;
+
+            const difficultyElement = document.querySelector(
+                ".recipe-info > span:nth-child(2)",
+            )?.childNodes[1] as HTMLElement;
+            if (difficultyElement)
+                difficultyElement.textContent = ` Obtížnost: ${frontmatter.difficulty}/5`;
+
+            const ingredientsList = document.querySelector("#ingredients");
+            if (ingredientsList) {
+                ingredientsList.innerHTML = "";
+                frontmatter.ingredients.forEach((ingredient: any) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<input type="checkbox" id="${ingredient}" name="${ingredient}" /><label for="${ingredient}">${ingredient}</label>`;
+                    ingredientsList.appendChild(li);
+                });
+            }
+
+            const tagsList = document.querySelector(".tags");
+            if (tagsList) {
+                tagsList.innerHTML = "";
+                frontmatter.tags.forEach((tag: any) => {
+                    const div = document.createElement("div");
+                    div.className = "tag";
+                    div.textContent = tag;
+                    tagsList.appendChild(div);
+                });
+            }
+
+            const portionTypeElement = document.querySelector("#portion_type");
+            if (portionTypeElement)
+                portionTypeElement.textContent = frontmatter.portion_type;
+
+            const portionsInput = document.querySelector(
+                "#count",
+            ) as HTMLInputElement;
+            if (portionsInput) {
+                portionsInput.value = frontmatter.portions;
+                // fake input event
+                portionsInput.dispatchEvent(new Event("input"));
+            }
+        }
+
+        if (body) {
+            // recipe-body
+            const recipeBody = document.querySelector(".recipe-body");
+            if (recipeBody) recipeBody.innerHTML = marked.parse(body) as string;
+        }
+    });
+</script>
+
+<style is:inline>
+    .tag {
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin: 5px;
+    }
+</style>

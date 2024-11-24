@@ -1,0 +1,53 @@
+Copyright (c) 2024 Romana Štefančová, Pavel Štefanča, Jan Štefanča, Barbora Štefančová, Marie Štefančová  
+
+Tento projekt zahrnuje **zdrojový kód**, **recepty**, **grafiku** a **fotografie**. Každá část má specifické licenční podmínky, které jsou popsány níže.  
+
+---
+
+## Zdrojový kód  
+Zdrojový kód tohoto projektu je licencován podle následujících podmínek:  
+
+1. **Povolení kopírování, úprav a distribuce**  
+   - Je povoleno používat, kopírovat, upravovat a distribuovat zdrojový kód tohoto projektu (včetně jeho modifikací), za předpokladu, že:  
+     - Při distribuci (upravené i neupravené verze) bude zachován tento text licence.  
+     - Při distribuci bude uvedeno oznámení o původním autorství, tj. „Rodina Štefančových“, spolu s odkazem na webovou stránku projektu.  
+     - Jakékoli úpravy a jejich distribuce budou šířeny pod touto licencí, či licencí splňující principů share-alike a atribuce.  
+
+2. **Bez záruky a odpovědnosti**  
+   - Zdrojový kód je poskytován "tak, jak je", **bez jakékoli záruky** jakéhokoli druhu, ať už výslovné nebo implicitní, včetně (ale nikoli pouze) záruk obchodovatelnosti nebo vhodnosti pro určitý účel.  
+   - Autoři ani přispěvatelé nenesou odpovědnost za žádné nároky, škody ani jinou odpovědnost, ať už na základě smlouvy, občanskoprávního deliktu nebo jinak, vyplývající z užití nebo jiné souvislosti se softwarem.  
+
+3. **Atribuce**  
+   - Každá kopie nebo modifikace zdrojového kódu musí obsahovat jasné a viditelné uvedení původu (atribuci) na vhodném místě, například na stránce s poděkováním nebo v patičce webu. Atribuce musí zahrnovat informaci, že váš projekt využívá zdrojový kód tohoto projektu, a obsahovat odkaz na git repozitář projektu.
+   - Doporučený formát atribuce:  
+     ```html
+     Tato stránka využíva projektu <a href="https://github.com/PanJohnny/KucharkaProMaminku">PanJohnny/KucharkaProMaminku</a>
+     ```
+
+---
+
+## Recepty  
+Recepty uvedené v tomto projektu podléhají následujícím podmínkám:  
+
+1. **Práva na recepty**  
+   - Stránka je pouze poskytovatelem receptů.
+   - Pokud není uvedeno jinak, tak platí následovné:
+     - Při jakémkoliv využití uveďte odkud jste tento recept získali. Pokud je autor receptu uveden, tak přidejte jméno autora.
+     - Při komerčním využití je potřeba písemného souhlasu správce stránky.
+
+2. **Bez záruky a odpovědnosti**  
+   - Recepty jsou poskytovány "tak, jak jsou", bez jakékoli záruky či odpovědnosti za jejich použití nebo výsledky.  
+
+---
+
+## Grafika a fotografie  
+1. **Autorská práva**  
+   - Veškerá grafika a fotografie obsažené v tomto projektu jsou chráněny autorským právem uvedených autorů a jsou poskytovány pouze k prohlížení v rámci tohoto projektu.  
+
+2. **Zakázané užití**  
+   - Není povoleno kopírovat, upravovat, ani distribuovat grafiku nebo fotografie obsažené v tomto projektu bez předchozího písemného souhlasu autorů.  
+
+3. **Bez záruky a odpovědnosti**  
+   - Grafika a fotografie jsou poskytovány "tak, jak jsou", bez jakékoli záruky či odpovědnosti za jejich použití nebo výsledky.  
+
+---

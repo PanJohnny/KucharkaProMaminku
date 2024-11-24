@@ -1,7 +1,7 @@
 ---
 import Layout from "./Layout.astro";
 import { Icon } from "astro-icon/components";
-interface Props {
+interface Content {
     name: string;
     ingredients: string[];
     difficulty: number /* 1-5 */;
@@ -13,6 +13,10 @@ interface Props {
     portion_type: string;
 }
 
+interface Props {
+    content: Content;
+}
+
 const {
     name,
     tags,
@@ -22,7 +26,7 @@ const {
     description,
     image,
     portion_type, // @ts-ignore
-} = Astro.props["content"] as Props;
+} = Astro.props["content"] as Content;
 
 // @ts-ignore
 let { portions } = Astro.props["content"] as Props;
@@ -37,6 +41,9 @@ const type_plurals: any = {
 };
 
 function pluralize(n: number, type: string): string {
+    if (!type_plurals[type]) {
+        return type;
+    }
     if (n === 1) {
         return type;
     }
@@ -291,9 +298,15 @@ function pluralize(n: number, type: string): string {
     });
 
     function updateIngredients(multiplier: number) {
+        if (!originalList.length) {
+            return;
+        }
         // Detect numbers in the ingredients innerText (li) and multiply them
         ingredients?.querySelectorAll("label").forEach((li, index) => {
             const originalText = originalList[index];
+            if (!originalText) {
+                return;
+            }
             const matches = originalText.match(/\d+/g);
             if (matches) {
                 let newText = originalText;

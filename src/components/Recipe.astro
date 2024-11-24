@@ -8,23 +8,26 @@ interface Props {
 	description: string;
 	image: string;
 	link: string;
+	editMode?: boolean;
 }
 
-const { title, time, difficulty, description, image, link } = Astro.props as Props;
+const { title, time, difficulty, description, image, link, editMode } = Astro.props as Props;
+
+let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 ---
-<a href={link}>
+<a href={finalLink} data-recipe>
 	<div class="recipe">
 		<div class="recipe-body">
-			<h2>{title}</h2>
+			<h2 data-pl="title">{title}</h2>
 			<div class="recipe-info">
-				<span><Icon name="ic:baseline-access-time"/> Čas: {time} minut</span>
-				<span><Icon name="ic:outline-workspace-premium" /> Obtížnost: {difficulty}/5</span>
+				<span data-pl="time"><Icon name="ic:baseline-access-time"/> Čas: {time} minut</span>
+				<span data-pl="difficulty"><Icon name="ic:outline-workspace-premium" /> Obtížnost: {difficulty}/5</span>
 			</div>
-			<p>
+			<p data-pl="description">
 				{description}
 			</p>
 		</div>
-		<img src={image} alt={title} />
+		<img src={image} alt={title} data-pl="image" />
 	</div>
 </a>
 

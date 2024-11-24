@@ -1,0 +1,37 @@
+---
+import RecipeSearcher from "../../components/RecipeSearcher.astro";
+import Layout from "../../layouts/Layout.astro"
+if (!Astro.cookies.has("github_token")) {
+    return Astro.rewrite("/admin/login");
+}
+---
+
+<Layout title="Administrace" description="Správa receptů">
+    <main>
+        <div class="float">
+            <h2>Vítejte</h2>
+            <p>Vítejte na stránce správce.</p>
+            <a href="#edit">Upravte existující recept</a>
+        </div>
+        <div class="float" id="edit">
+            <h2>Upravte existující recept</h2>
+            <RecipeSearcher editMode/>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    main {
+        background-color: var(--gray);
+        padding: 2em;
+    }
+
+    .float {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--background-color);
+        padding: 2em;
+        border-radius: 12px;
+        margin-bottom: 2em;
+    }
+</style>
