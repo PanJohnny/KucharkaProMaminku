@@ -23,7 +23,7 @@ if (!recipe) {
 <Layout title="Administrace" description="Správa receptů">
     <main>
         <div class="float">
-            <Editor frontmatter={recipe.frontmatter} body={recipe.rawContent()}/>
+            <Editor frontmatter={recipe.frontmatter} body={recipe.rawContent()} link={recipe.url}/>
         </div>
     </main>
 </Layout>

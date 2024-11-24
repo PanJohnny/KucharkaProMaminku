@@ -2,8 +2,9 @@
 interface Props {
     frontmatter?: any;
     body?: string;
+    link?: string;
 }
-const { frontmatter, body } = Astro.props as Props;
+const { frontmatter, body, link } = Astro.props as Props;
 
 function f(s: string) {
     if (frontmatter && frontmatter[s]) {
@@ -167,37 +168,37 @@ function f(s: string) {
     }
 </style>
 
-<script>
-    const diff = document.getElementById("difficulty") as HTMLInputElement;
-    const diffView = document.getElementById("diff-view") as HTMLSpanElement;
+<script define:vars={{link: link}}>
+    const diff = document.getElementById("difficulty");
+    const diffView = document.getElementById("diff-view");
     diffView.innerText = diff.value;
 
     diff.addEventListener("input", () => {
         diffView.innerText = diff.value;
     });
 
-    const name = document.getElementById("name") as HTMLInputElement;
+    const name = document.getElementById("name") ;
     const description = document.getElementById(
         "description",
-    ) as HTMLInputElement;
-    const image = document.getElementById("image") as HTMLInputElement;
-    const time = document.getElementById("time") as HTMLInputElement;
+    );
+    const image = document.getElementById("image") ;
+    const time = document.getElementById("time") ;
     const difficulty = document.getElementById(
         "difficulty",
-    ) as HTMLInputElement;
+    );
     const ingredients = document.getElementById(
         "ingredients",
-    ) as HTMLTextAreaElement;
-    const body = document.getElementById("body") as HTMLTextAreaElement;
-    const tags = document.getElementById("tags") as HTMLInputElement;
-    const count = document.getElementById("count") as HTMLInputElement;
+    );
+    const body = document.getElementById("body");
+    const tags = document.getElementById("tags");
+    const count = document.getElementById("count");
     const portionType = document.getElementById(
         "portion_type",
-    ) as HTMLInputElement;
+    ) ;
 
-    const sim = document.getElementById("sim") as HTMLInputElement;
+    const sim = document.getElementById("sim") ;
 
-    let win: Window | null = null;
+    let win = null;
     sim.addEventListener("click", () => {
         // open /admin/sim as popup, keep the window object to update it using sendMessage
         win = window.open("/admin/sim", "sim", "width=400,height=400");
@@ -233,10 +234,10 @@ function f(s: string) {
                     difficulty: difficulty?.value,
                     ingredients: ingredients?.value
                         .split("\n")
-                        .filter((ing: string) => ing.trim() !== ""),
+                        .filter((ing) => ing.trim() !== ""),
                     tags: tags?.value
                         .split(",")
-                        .map((tag: string) => tag.trim()),
+                        .map((tag) => tag.trim()),
                     portions: count?.value,
                     portion_type: portionType?.value,
                 },
@@ -246,26 +247,28 @@ function f(s: string) {
         );
     }
 
-    const submit = document.getElementById("submit") as HTMLInputElement;
+    const submit = document.getElementById("submit") ;
 
     submit.addEventListener("click", async () => {
         const confirmSubmit = confirm("Opravdu chcete odeslat změny?");
         if (!confirmSubmit) return;
 
+        const recipeLink = link ? link.split("/").pop()?.replace(".md", "") : name.value.toLowerCase().replace(/\s+/g, "-");
+
         const data = {
-            recept: encodeURI(name.value.toLowerCase().replace(/\s+/g, "-")),
+            recept: encodeURI(recipeLink),
             raw: `
 ---
 layout: "../../layouts/Recipe.astro"
 name: "${name.value}"
 description: "${description.value}"
-tags: ${JSON.stringify(tags.value.split(",").map((tag: string) => tag.trim()))}
+tags: ${JSON.stringify(tags.value.split(",").map((tag) => tag.trim()))}
 difficulty: ${difficulty.value}
 time: ${time.value}
 portions: ${count.value}
 portion_type: "${portionType.value}"
 image: "${image.value}"
-ingredients: ${JSON.stringify(ingredients.value.split("\n").filter((ing: string) => ing.trim() !== ""))}
+ingredients: ${JSON.stringify(ingredients.value.split("\n").filter((ing) => ing.trim() !== ""))}
 ---
 
 ${body.value}
@@ -279,8 +282,8 @@ ${body.value}
         document.body.appendChild(dialog);
         dialog.showModal();
 
-        const ok = document.getElementById("ok") as HTMLButtonElement;
-        const cancel = document.getElementById("cancel") as HTMLButtonElement;
+        const ok = document.getElementById("ok");
+        const cancel = document.getElementById("cancel");
 
         ok.addEventListener("click", async () => {
             dialog.close();
