@@ -251,9 +251,6 @@ function f(s: string) {
     const submit = document.getElementById("submit") ;
 
     submit.addEventListener("click", async () => {
-        const confirmSubmit = confirm("Opravdu chcete odeslat změny?");
-        if (!confirmSubmit) return;
-
         const recipeLink = link ? link.split("/").pop()?.replace(".md", "") : name.value.toLowerCase().replace(/\s+/g, "-").normalize('NFKD').replace(/[^\w]/g, '');
 
         const data = {
@@ -287,6 +284,7 @@ ${body.value}
 
         ok.addEventListener("click", async () => {
             dialog.close();
+            dialog.remove();
             try {
                 const response = await fetch("/admin/commit", {
                     method: "POST",
@@ -308,7 +306,9 @@ ${body.value}
 
         cancel.addEventListener("click", () => {
             dialog.close();
+            dialog.remove();
             alert("Změny nebyly odeslány.");
+            window.location.href = "/admin/";
         });
     });
 </script>
