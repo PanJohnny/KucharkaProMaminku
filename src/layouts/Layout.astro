@@ -43,10 +43,10 @@ let hDesc = Astro.props.description || "To nejlepší z rodinné kuchařky";
     </footer>
 </html>
 
-<style>
+<style is:global>
     @import url(https://fonts.bunny.net/css?family=inter:400,500,900);
 
-    :global(:root) {
+    :root {
         --background-color: #F7D08A;
         --text-color: #1E1F1E;
         --pink-light: #E0AC9D;

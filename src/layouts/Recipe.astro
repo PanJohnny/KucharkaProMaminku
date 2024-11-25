@@ -83,9 +83,9 @@ function pluralize(n: number, type: string): string {
                     >
                     <input
                         type="number"
-                        name="portions"
                         id="count"
                         value={portions}
+                        autocomplete="off"
                     />
                     <button id="inc"
                         ><Icon name="ic:baseline-keyboard-arrow-up" /></button
@@ -265,6 +265,7 @@ function pluralize(n: number, type: string): string {
     const inc = document.getElementById("inc");
     const dec = document.getElementById("dec");
     const input = document.querySelector("#count");
+    const originalCount = parseInt((input as HTMLInputElement).value);
     const portionType = document.querySelector("#portion_type");
     const originalPortionType = (portionType as HTMLElement).innerText;
 
@@ -311,7 +312,10 @@ function pluralize(n: number, type: string): string {
             if (matches) {
                 let newText = originalText;
                 matches.forEach((match) => {
-                    const newNumber = parseInt(match) * multiplier;
+                    let newNumber:any = parseInt(match) * (multiplier / originalCount);
+                    if (newNumber % 1 !== 0) {
+                        newNumber = newNumber.toFixed(2);
+                    }
                     newText = newText.replace(match, newNumber.toString());
                 });
                 li.innerText = newText;

@@ -57,10 +57,6 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 		flex: 1;
 	}
 
-	.recipe:nth-of-type(even) {
-		flex-direction: row;
-	}
-
 	.recipe img {
 		height: auto;
 		width: 30vw;
@@ -71,10 +67,6 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 		.recipe {
 			flex-direction: column-reverse;
 			height: 400px;
-		}
-
-		.recipe:nth-of-type(even) {
-			flex-direction: column-reverse;
 		}
 
 		.recipe img {
@@ -89,5 +81,17 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 
     a {
         all: unset;
+    }
+</style>
+
+<style is:global>
+	[data-recipe]:nth-of-type(even) .recipe {
+		flex-direction: row;
+    }
+
+    @media screen and (max-width: 600px) {
+		[data-recipe]:nth-of-type(even) .recipe {
+			flex-direction: column-reverse;
+		}
     }
 </style>
