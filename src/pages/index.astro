@@ -3,9 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Recipe from "../components/Recipe.astro";
 
 const recipes = await Astro.glob('./recept/*.md');
-
-console.log(recipes[0].frontmatter);
-
 ---
 
 <Layout
