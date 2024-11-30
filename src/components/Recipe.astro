@@ -27,7 +27,7 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 				{description}
 			</p>
 		</div>
-		<img src={image} alt={title} data-pl="image" />
+		{image.length > 0? <img src={image} alt={title} data-pl="image" /> :undefined}
 	</div>
 </a>
 

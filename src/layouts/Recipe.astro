@@ -60,7 +60,7 @@ function pluralize(n: number, type: string): string {
             <div class="recipe-body">
                 <slot />
             </div>
-            <img src={image} alt={name} />
+            {image.length > 0 ? <img src={image} alt={name} /> : undefined}
         </div>
 
         <div class="ingredients">
