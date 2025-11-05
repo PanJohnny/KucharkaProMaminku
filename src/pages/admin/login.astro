@@ -1,5 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro"
+
+const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "127.0.0.1";
+
+if (localMode) {
+    Astro.cookies.set("github_token", "localdevtoken");
+    return Astro.redirect("/admin");
+}
 ---
 
 <Layout title="Přihlašte se" description="Adminsitrace vyžaduje přihlášení">

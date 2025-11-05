@@ -11,9 +11,19 @@ function f(s: string) {
         return frontmatter[s];
     }
 }
+
+const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "127.0.0.1";
 ---
 
 <div class="editor">
+    <div class="info">
+        {link
+            ? `Úprava receptu: ${link}`
+            : "Vytváříte nový recept, po odeslání bude dostupný na /recept/nazev-receptu"}
+        {localMode
+            ? " (Lokální režim)"
+            : ""}
+    </div>
     <input type="button" value="Otevřít aktualizující se ukázku" id="sim" />
     <input
         type="text"
@@ -56,7 +66,7 @@ function f(s: string) {
             type="range"
             name="difficulty"
             id="difficulty"
-            min="1"
+            min="0"
             max="5"
             value={f("difficulty")}
         />
@@ -167,15 +177,27 @@ function f(s: string) {
     .line :first-child {
         flex: 1;
     }
+
+    .info {
+        background-color: #53c2ea;
+        padding: 0.5em 1em;
+        border-radius: 12px;
+        font-size: 1.2em;
+        color: var(--text-color);
+    }
 </style>
 
-<script define:vars={{link: link}}>
+<script define:vars={{link, localMode}}>
     const diff = document.getElementById("difficulty");
     const diffView = document.getElementById("diff-view");
     diffView.innerText = diff.value;
 
     diff.addEventListener("input", () => {
-        diffView.innerText = diff.value;
+        if (diff.value === "0") {
+            diffView.innerText = "Neuvedeno";
+        } else {
+            diffView.innerText = diff.value;
+        }
     });
 
     const name = document.getElementById("name") ;
@@ -232,7 +254,9 @@ function f(s: string) {
                     description: description?.value,
                     image: image?.value,
                     time: time?.value,
-                    difficulty: difficulty?.value,
+                    difficulty: difficulty?.value && difficulty.value !== 0
+                        ? difficulty.value
+                        : undefined,
                     ingredients: ingredients?.value
                         .split("\n")
                         .filter((ing) => ing.trim() !== ""),
@@ -251,8 +275,7 @@ function f(s: string) {
     const submit = document.getElementById("submit") ;
 
     submit.addEventListener("click", async () => {
-        const recipeLink = link ? link.split("/").pop()?.replace(".md", "") : name.value.toLowerCase().replace(/\s+/g, "-").normalize('NFKD').replace(/[^\w]/g, '');
-
+        const recipeLink = link ? link.split("/").pop()?.replace(".md", "") : name.value.toLowerCase().normalize('NFKD').replace(/\s+/g, "-").replace(/[^\w-]/g, '');
         const data = {
             recept: recipeLink,
             raw: `---
@@ -286,7 +309,7 @@ ${body.value}
             dialog.close();
             dialog.remove();
             try {
-                const response = await fetch("/admin/commit", {
+                const response = await fetch(localMode?"/admin/write":"/admin/commit", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

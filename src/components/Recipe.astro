@@ -19,13 +19,15 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 	<div class="recipe">
 		<div class="recipe-body">
 			<h2 data-pl="title">{title}</h2>
+            {time || difficulty ? (
 			<div class="recipe-info">
-				<span data-pl="time"><Icon name="ic:baseline-access-time"/> Čas: {time} minut</span>
-				<span data-pl="difficulty"><Icon name="ic:outline-workspace-premium" /> Obtížnost: {difficulty}/5</span>
+                {time && <span data-pl="time"><Icon name="ic:baseline-access-time"/> Čas: {time} minut</span>}
+                {difficulty && <span data-pl="difficulty"><Icon name="ic:outline-workspace-premium" /> Obtížnost: {difficulty}/5</span>}
 			</div>
-			<p data-pl="description">
-				{description}
-			</p>
+                ):undefined}
+            {description && (<p data-pl="description">
+                {description}
+            </p>)}
 		</div>
 		{image.length > 0? <img src={image} alt={title} data-pl="image" /> :undefined}
 	</div>
@@ -64,6 +66,10 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 	}
 
 	@media screen and (max-width: 600px) {
+        .recipe:not(:has(> img)) {
+            height: auto;
+        }
+
 		.recipe {
 			flex-direction: column-reverse;
 			height: 400px;

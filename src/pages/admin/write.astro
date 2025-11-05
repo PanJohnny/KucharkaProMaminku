@@ -1,0 +1,22 @@
+---
+// for local mode
+import { writeFileSync } from "fs";
+
+const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "127.0.0.1";
+
+if (!localMode) {
+    return new Response("Not allowed", { status: 403 });
+}
+
+const data = await Astro.request.json();
+
+try {
+    let recipe = data.recept;
+
+    writeFileSync(`./src/pages/recept/${recipe}.md`, data.raw);
+
+    return new Response("Success!", { status: 200 });
+} catch (error) {
+    return new Response(error as string, { status: 413 });
+}
+---

@@ -4,10 +4,10 @@ import { Icon } from "astro-icon/components";
 interface Content {
     name: string;
     ingredients: string[];
-    difficulty: number /* 1-5 */;
-    time: number /* in minutes */;
-    description: string;
-    image: string;
+    difficulty?: number /* 1-5 */;
+    time?: number /* in minutes */;
+    description?: string;
+    image?: string;
     tags: string[];
     portions: number;
     portion_type: string;
@@ -17,7 +17,7 @@ interface Props {
     content: Content;
 }
 
-const {
+let {
     name,
     tags,
     ingredients,
@@ -27,6 +27,14 @@ const {
     image,
     portion_type, // @ts-ignore
 } = Astro.props["content"] as Content;
+
+if (!image) {
+    image = "/no_image.webp";
+}
+
+if (difficulty == 0) {
+    difficulty = null;
+}
 
 // @ts-ignore
 let { portions } = Astro.props["content"] as Content;
@@ -38,6 +46,7 @@ const type_plurals: any = {
     hrnek: ["hrnky", "hrnků"],
     sklenice: ["sklenice", "sklenic"],
     porce: ["porce", "porcí"],
+    hrnec: ["hrnce", "hrnců"],
 };
 
 function pluralize(n: number, type: string): string {
@@ -54,7 +63,7 @@ function pluralize(n: number, type: string): string {
 }
 ---
 
-<Layout title={name} description={description} overwriteTitle image={image}>
+<Layout title={name} description={description ? description : ""} overwriteTitle image={image}>
     <main class="basic-info">
         <div class="recipe">
             <div class="recipe-body">
@@ -65,14 +74,18 @@ function pluralize(n: number, type: string): string {
 
         <div class="ingredients">
             <div class="recipe-info">
-                <span
-                    ><Icon name="ic:baseline-access-time" /> Čas: {time} minut</span
-                >
-                <span
-                    ><Icon name="ic:outline-workspace-premium" /> Obtížnost: {
-                        difficulty
-                    }/5</span
-                >
+                {time && (
+                        <span
+                        ><Icon name="ic:baseline-access-time" /> Čas: {time} minut</span
+                        >
+                )}
+                {difficulty && (
+                        <span
+                        ><Icon name="ic:outline-workspace-premium" /> Obtížnost: {
+                            difficulty
+                        }/5</span
+                        >
+                )}
             </div>
             <h3>Ingredience</h3>
             <div class="portion-tool">
