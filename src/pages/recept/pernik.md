@@ -7,7 +7,7 @@ difficulty: 3
 time: 70
 portions: 1
 portion_type: "plech"
-image: "/chleba.jpg"
+image: ""
 ingredients: ["500 ml  mléka","10 lžic oleje","2 lžíce medu","2 vejce","200 g cukru","500 g polohrubé mouky","1 kypřící prášek do perníku"]
 ---
 

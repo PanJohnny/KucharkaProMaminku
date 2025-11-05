@@ -1,0 +1,51 @@
+---
+import Recipe from "../components/Recipe.astro";
+
+let recipes = await Astro.glob("../pages/recept/*.md");
+
+interface Props {
+    editMode?: boolean;
+    tagged: string;
+}
+
+const { editMode, tagged } = Astro.props as Props;
+
+recipes = recipes.filter((recipe) =>
+    recipe.frontmatter.tags?.includes(tagged)
+);
+---
+
+
+<section id="recipes">
+    {
+        recipes
+            .slice(0, 20)
+            .map((recipe) => (
+                    <Recipe
+                            title={recipe.frontmatter.name}
+                            description={recipe.frontmatter.description}
+                            difficulty={recipe.frontmatter.difficulty}
+                            image={recipe.frontmatter.image}
+                            link={recipe.url || "/404"}
+                            time={recipe.frontmatter.time}
+                            editMode={editMode}
+                    />
+            ))
+    }
+</section>
+
+<style>
+    section {
+        padding: 3em;
+    }
+
+    #recipes {
+        background-color: var(--gray);
+    }
+
+    @media screen and (max-width: 600px) {
+        section {
+            padding: 1em;
+        }
+    }
+</style>

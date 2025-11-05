@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import RecipeViewer from "../../components/RecipeViewer.astro";
+
+const tag = Astro.params.tag as string;
+---
+
+<Layout title={`# ${tag[0]}`.toUpperCase() + tag.substring(1)} description={`Jídla s označením ${tag} z Maminčiny kuchařky`} overwriteTitle>
+    <main>
+        <RecipeViewer tagged={tag} />
+    </main>
+</Layout>
+

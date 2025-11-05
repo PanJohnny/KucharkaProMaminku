@@ -9,6 +9,18 @@ interface Props {
 
 let title = Astro.props.title || "Maminčina kuchařka";
 let description = Astro.props.description || "To nejlepší z rodinné kuchařky";
+
+let pathName = Astro.url.pathname;
+
+let paths: Record<string, string> = {
+    "/": "Domů",
+    "/polevky": "Polévky",
+    "/hlavni-jidla": "Hlavní jídla",
+};
+
+if (!paths[pathName]) {
+    paths[pathName] = title;
+}
 ---
 
 <header>
@@ -16,9 +28,15 @@ let description = Astro.props.description || "To nejlepší z rodinné kuchařky
         <div class="nav">
             <nav>
                 <ul>
-                    <li><a href="/">Domů</a></li>
-                    <li><a href="/recepty">Recepty</a></li>
-                    <li><a href="/o-nas">O nás</a></li>
+                    {Object.entries(paths).map(([path, name]) => (
+                        <li>
+                            <a
+                                href={path}
+                                class={pathName === path ? "current" : ""}
+                                >{name}</a
+                            >
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </div>
@@ -168,15 +186,6 @@ let description = Astro.props.description || "To nejlepší z rodinné kuchařky
             header.classList.add("scroll");
         } else if (window.scrollY < 56) {
             header.classList.remove("scroll");
-        }
-    });
-
-    // Add current class to current page
-    const links = document.querySelectorAll("nav a");
-    links.forEach((link) => {
-        const url = new URL((link as HTMLAnchorElement).href || "");
-        if (url.pathname === window.location.pathname) {
-            link.classList.add("current");
         }
     });
 </script>

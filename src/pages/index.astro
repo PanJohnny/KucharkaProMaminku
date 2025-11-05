@@ -1,8 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Recipe from "../components/Recipe.astro";
-
-const recipes = await Astro.glob('./recept/*.md');
 ---
 
 <Layout
@@ -11,16 +9,7 @@ const recipes = await Astro.glob('./recept/*.md');
 >
 	<main>
 		<section id="recipes">
-			{recipes.slice(0, 10).map(recipe => (
-				<Recipe 
-					title={recipe.frontmatter.name} 
-					description={recipe.frontmatter.description} 
-					difficulty={recipe.frontmatter.difficulty} 
-					image={recipe.frontmatter.image} 
-					link={recipe.url || "/404"} 
-					time={recipe.frontmatter.time} 
-				/>
-			))}
+            <em>In construction..</em>
 		</section>
 	</main>
 </Layout>
