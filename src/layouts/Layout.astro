@@ -30,6 +30,8 @@ let hDesc = Astro.props.description || "To nejlepší z rodinné kuchařky";
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={favicon} />
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=abhaya-libre:400|abril-fatface:400" rel="stylesheet" />
     </head>
     <body>
         <Header title={overwriteTitle?title:"Oranžová kuchařka"} description={hDesc}/>
@@ -42,7 +44,6 @@ let hDesc = Astro.props.description || "To nejlepší z rodinné kuchařky";
 </html>
 
 <style is:global>
-    @import url(https://fonts.bunny.net/css?family=abril-fatface:400|abhaya-libre:400);
     :root {
         --background-color: #F6D9CB;
         --text-color: #1E1F1E;
