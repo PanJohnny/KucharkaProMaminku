@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Batátovo-mrkvová polévka"
 description: "Sladká a jemně pikantní krémová polévka z batátů a mrkve, dochucená česnekem a kurkumou."
 tags: ["polévka", "batáty", "mrkev", "krémová"]

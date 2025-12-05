@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Cizrnová polévka od Renaty"
 description: "Krémová a jemně kořeněná cizrnová polévka se zeleninou a zázvorem, která zahřeje i zasytí."
 tags: ["polévka", "cizrna", "zdravé jídlo", "bez masa"]

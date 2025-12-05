@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import {Image} from "astro:assets";
 import Book from "../resources/book.svg";
 
 interface Props {
@@ -29,13 +29,13 @@ if (!paths[pathName]) {
             <nav>
                 <ul>
                     {Object.entries(paths).map(([path, name]) => (
-                        <li>
-                            <a
-                                href={path}
-                                class={pathName === path ? "current" : ""}
+                            <li>
+                                <a
+                                        href={path}
+                                        class={pathName === path ? "current" : ""}
                                 >{name}</a
-                            >
-                        </li>
+                                >
+                            </li>
                     ))}
                 </ul>
             </nav>
@@ -45,7 +45,7 @@ if (!paths[pathName]) {
             <p>{description}</p>
         </div>
     </div>
-    <Image class="book" src={Book} alt="Maminčina kuchařka" />
+    <Image class="book" src={Book} alt="Maminčina kuchařka"/>
 </header>
 
 <style>
@@ -55,9 +55,8 @@ if (!paths[pathName]) {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        transition:
-            background-color 0.3s ease,
-            height 0.3s ease; /* Added transition */
+        transition: background-color 0.3s ease,
+        height 0.3s ease; /* Added transition */
     }
 
     .container {
@@ -173,6 +172,21 @@ if (!paths[pathName]) {
     @media screen and (max-width: 550px) {
         .scroll h1 {
             display: none;
+        }
+    }
+
+    @media print {
+        .nav, .book {
+            display: none;
+        }
+
+        .container {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        h1 {
+            font-size: 40px !important;
         }
     }
 </style>

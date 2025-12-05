@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Perník"
 description: "Jednoduchý a rychlý dezert"
 tags: ["rychlé","snadné","perník","pečení","sladké","dezert"]

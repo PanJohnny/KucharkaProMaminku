@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Bramborové halušky"
 description: "Jednoduché a tradiční bramborové halušky z nastrouhaných brambor, vajec a mouky. Skvělé jako příloha nebo hlavní jídlo."
 tags: ["hlavní jídlo", "brambory", "tradiční", "česká kuchyně"]

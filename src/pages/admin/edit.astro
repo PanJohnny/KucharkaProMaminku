@@ -1,18 +1,20 @@
 ---
 import Editor from "../../components/Editor.astro";
 import Layout from "../../layouts/Layout.astro";
+import {getEntry} from "astro:content";
 if (!Astro.cookies.has("github_token")) {
     return Astro.rewrite("/admin/login");
 }
 
 const r = Astro.url.searchParams.get("r");
-let recipe:any = {frontmatter: undefined, rawContent: () => undefined, url: undefined};
+let recipe:any;
 if (r) {
     if (!r.startsWith("/recept/") || r.includes("..")) {
         return Astro.redirect("/ne");
     }
 
-    recipe = (await Astro.glob("../recept/*.md")).find((a) => a.url === r);
+    recipe = {...await getEntry("recipes", r.replace("/recept/", "")), url: r};
+
     if (!recipe) {
         return Astro.redirect("/admin/");
     }
@@ -23,9 +25,9 @@ if (r) {
     <main>
         <div class="float">
             <Editor
-                frontmatter={recipe.frontmatter}
-                body={recipe.rawContent()}
-                link={recipe.url}
+                frontmatter={recipe?.data}
+                body={recipe?.body}
+                link={recipe?.url}
             />
         </div>
     </main>

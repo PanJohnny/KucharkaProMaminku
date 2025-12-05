@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Cibulačka"
 description: "Tradiční česká cibulová polévka s máslovou jíškou, jednoduchá a chutná."
 tags: ["polévka", "česká kuchyně", "cibule", "klasika"]

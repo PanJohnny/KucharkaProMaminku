@@ -3,7 +3,7 @@ layout: ../layouts/Layout.astro
 ---
 
 <main>
-Copyright (c) 2024 Romana Štefančová, Pavel Štefanča, Jan Štefanča, Barbora Štefančová, Marie Štefančová  
+Copyright (c) 2025 Romana Štefančová, Pavel Štefanča, Jan Štefanča, Barbora Štefančová, Marie Štefančová  
 
 Tento projekt zahrnuje **zdrojový kód**, **recepty**, **grafiku** a **fotografie**. Každá část má specifické licenční podmínky, které jsou popsány níže.  
 
@@ -61,5 +61,6 @@ Recepty uvedené v tomto projektu podléhají následujícím podmínkám:
 <style>
     main {
         padding: 2em;
+        background-color: #f9f9f9;
     }
 </style>

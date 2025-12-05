@@ -15,7 +15,7 @@ try {
         const response = await octokit.rest.repos.getContent({
             owner: "PanJohnny",
             repo: "KucharkaProMaminku",
-            path: `src/pages/recept/${data.recept}.md`,
+            path: `src/recipes/${data.recept}.md`,
         });
         // @ts-ignore
         sha = response.data.sha;
@@ -27,7 +27,7 @@ try {
     await octokit.rest.repos.createOrUpdateFileContents({
         owner: "PanJohnny",
         repo: "KucharkaProMaminku",
-        path: `src/pages/recept/${data.recept}.md`,
+        path: `src/recipes/${data.recept}.md`,
         message: "Úprava receptu " + data.recept,
         content: Buffer.from(data.raw).toString("base64"),
         sha: sha,

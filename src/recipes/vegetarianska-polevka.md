@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Vegetariánská polévka"
 description: "Lehká a výživná zeleninová polévka s červenou čočkou, rajčaty a římským kmínem. Skvělá jako zdravý oběd nebo večeře."
 tags: ["polévka", "vegetariánské", "čočka", "zdravé jídlo"]

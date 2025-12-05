@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Dýňová polévka"
 description: "Krémová a voňavá dýňová polévka s mrkví, zázvorem a smetanou. Ideální na podzimní dny."
 tags: ["polévka", "dýně", "krémová", "podzimní recept"]

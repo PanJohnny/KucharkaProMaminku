@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Mexická polévka"
 description: "Pikantní a sytá mexická polévka s mletým hovězím masem, fazolemi a kukuřicí, ideální pro milovníky výrazných chutí."
 tags: ["polévka", "mexická kuchyně", "pikantní", "hovězí maso"]

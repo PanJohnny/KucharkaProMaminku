@@ -60,18 +60,6 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
         />
         <b>min</b>
     </div>
-    <label for="difficulty">Obtížnost (1-5):</label>
-    <div class="line">
-        <input
-            type="range"
-            name="difficulty"
-            id="difficulty"
-            min="0"
-            max="5"
-            value={f("difficulty")}
-        />
-        <b><span id="diff-view">{f("difficulty")}</span>/5</b>
-    </div>
     <label for="tags">Klíčová slova (oddělujte čárkou):</label>
     <input
         type="text"
@@ -188,27 +176,12 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
 </style>
 
 <script define:vars={{link, localMode}}>
-    const diff = document.getElementById("difficulty");
-    const diffView = document.getElementById("diff-view");
-    diffView.innerText = diff.value;
-
-    diff.addEventListener("input", () => {
-        if (diff.value === "0") {
-            diffView.innerText = "Neuvedeno";
-        } else {
-            diffView.innerText = diff.value;
-        }
-    });
-
     const name = document.getElementById("name") ;
     const description = document.getElementById(
         "description",
     );
     const image = document.getElementById("image") ;
     const time = document.getElementById("time") ;
-    const difficulty = document.getElementById(
-        "difficulty",
-    );
     const ingredients = document.getElementById(
         "ingredients",
     );
@@ -234,7 +207,6 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
         description,
         image,
         time,
-        difficulty,
         ingredients,
         body,
         tags,
@@ -254,9 +226,6 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
                     description: description?.value,
                     image: image?.value,
                     time: time?.value,
-                    difficulty: difficulty?.value && difficulty.value !== 0
-                        ? difficulty.value
-                        : undefined,
                     ingredients: ingredients?.value
                         .split("\n")
                         .filter((ing) => ing.trim() !== ""),
@@ -283,7 +252,6 @@ layout: "../../layouts/Recipe.astro"
 name: "${name.value}"
 description: "${description.value}"
 tags: ${JSON.stringify(tags.value.split(",").map((tag) => tag.trim()))}
-difficulty: ${difficulty.value}
 time: ${time.value}
 portions: ${count.value}
 portion_type: "${portionType.value}"

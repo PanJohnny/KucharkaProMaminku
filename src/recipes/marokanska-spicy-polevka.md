@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Marokánská spicy polévka"
 description: "Aromatická a pikantní marocká polévka s čočkou, cizrnou a orientálním kořením, podávaná s řeckým jogurtem."
 tags: ["polévka", "marocká kuchyně", "pikantní", "exotické"]

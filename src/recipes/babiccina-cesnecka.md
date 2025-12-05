@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Babiččina česnečka"
 description: "Výborná česnečka s brambory, zeleninou a majoránkou, která zahřeje a posílí imunitu."
 tags: ["polévka","česnek","česká kuchyně","klasika"]

@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Recipe.astro"
+layout: "../../layouts/RecipeLink.astro"
 name: "Domácí chleba"
 description: "Tradiční domácí chléb s kombinací pšeničné a žitné mouky, křupavou kůrkou a nadýchaným vnitřkem."
 tags: ["hlavní jídlo", "pečivo", "chléb", "domácí recept"]

@@ -1,7 +1,8 @@
 ---
-import Recipe from "../components/Recipe.astro";
+import {getCollection} from "astro:content";
+import RecipeLink from "./RecipeLink.astro";
 
-let recipes = await Astro.glob("../pages/recept/*.md");
+let recipes = await getCollection("recipes");
 
 interface Props {
     editMode?: boolean;
@@ -12,7 +13,7 @@ const { editMode, tagged } = Astro.props as Props;
 
 if (tagged) {
     recipes = recipes.filter((recipe) =>
-        recipe.frontmatter.tags?.includes(tagged)
+        recipe.data.tags?.includes(tagged)
     );
 }
 ---
@@ -23,12 +24,12 @@ if (tagged) {
         recipes
             .slice(0, 20)
             .map((recipe) => (
-                    <Recipe
-                            title={recipe.frontmatter.name}
-                            description={recipe.frontmatter.description}
-                            image={recipe.frontmatter.image}
-                            link={recipe.url || "/404"}
-                            time={recipe.frontmatter.time}
+                    <RecipeLink
+                            title={recipe.data.name}
+                            description={recipe.data.description}
+                            image={recipe.data.image}
+                            link={"/recept/" + recipe.id || "/404"}
+                            time={recipe.data.time}
                             editMode={editMode}
                     />
             ))
