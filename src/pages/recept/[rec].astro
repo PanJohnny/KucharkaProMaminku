@@ -1,9 +1,9 @@
 ---
 import {getCollection, getEntry, render} from "astro:content";
 import Recipe from "../../layouts/Recipe.astro";
-const { recipe } = Astro.params;
+const { rec } = Astro.params;
 
-const recipeData = await getEntry("recipes", recipe);
+const recipeData = await getEntry("recipes", rec);
 
 export async function getStaticPaths() {
   const recipes = await getCollection("recipes");
