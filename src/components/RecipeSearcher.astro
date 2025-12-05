@@ -29,7 +29,6 @@ const { editMode } = Astro.props as Props;
                 <Recipe
                     title={recipe.frontmatter.name}
                     description={recipe.frontmatter.description}
-                    difficulty={recipe.frontmatter.difficulty}
                     image={recipe.frontmatter.image}
                     link={recipe.url || "/404"}
                     time={recipe.frontmatter.time}
