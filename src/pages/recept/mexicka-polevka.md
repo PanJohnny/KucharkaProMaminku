@@ -3,10 +3,9 @@ layout: "../../layouts/Recipe.astro"
 name: "Mexická polévka"
 description: "Pikantní a sytá mexická polévka s mletým hovězím masem, fazolemi a kukuřicí, ideální pro milovníky výrazných chutí."
 tags: ["polévka", "mexická kuchyně", "pikantní", "hovězí maso"]
-difficulty: 3
 time: 45
-portions: 6
-portion_type: "porce"
+portions: 1
+portion_type: "hrnec"
 image: ""
 ingredients: ["250 g mletého hovězího masa","1 střední cibule","1 stroužek česneku","200 ml rajčatového pyré","600 ml hovězího vývaru","1 lžička římského kmínu","1 mrkev","1 chilli paprička","2 lžíce másla","1 malá konzerva kukuřice","1 polovina konzervy černých fazolí","sůl","pepř","možné dochutit koriandrem"]
 ---

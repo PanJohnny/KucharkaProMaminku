@@ -4,14 +4,14 @@ import { Icon } from 'astro-icon/components'
 interface Props {
 	title: string;
 	time: string;
-	difficulty: string;
 	description: string;
 	image: string;
 	link: string;
 	editMode?: boolean;
+    imageOffset?: string;
 }
 
-const { title, time, difficulty, description, image, link, editMode } = Astro.props as Props;
+const { title, time, description, image, link, editMode, imageOffset } = Astro.props as Props;
 
 let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 ---
@@ -19,10 +19,9 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 	<div class="recipe">
 		<div class="recipe-body">
 			<h2 data-pl="title">{title}</h2>
-            {time || difficulty ? (
+            {time ? (
 			<div class="recipe-info">
                 {time && <span data-pl="time"><Icon name="ic:baseline-access-time"/> Čas: {time} minut</span>}
-                {difficulty && <span data-pl="difficulty"><Icon name="ic:outline-workspace-premium" /> Obtížnost: {difficulty}/5</span>}
 			</div>
                 ):undefined}
             {description && (<p data-pl="description">
@@ -33,7 +32,7 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 	</div>
 </a>
 
-<style>
+<style define:vars={{imageOffset}}>
     .recipe {
 		background-color: var(--background-color);
 		display: flex;
@@ -51,7 +50,8 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 	}
 
 	.recipe-info {
-		margin-bottom: 1em;
+		margin-bottom: 1rem;
+        margin-top: .5rem;
 	}
 
 	.recipe-body {
@@ -87,6 +87,10 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
 
     a {
         all: unset;
+    }
+
+    p {
+        margin-top: 1.5rem;
     }
 </style>
 

@@ -3,10 +3,9 @@ layout: "../../layouts/Recipe.astro"
 name: "Cibulačka"
 description: "Tradiční česká cibulová polévka s máslovou jíškou, jednoduchá a chutná."
 tags: ["polévka", "česká kuchyně", "cibule", "klasika"]
-difficulty: 2
 time: 30
-portions: 6
-portion_type: "porce"
+portions: 1
+portion_type: "hrnec"
 image: ""
 ingredients: ["2 větší cibule","30 g másla","20 g hladké mouky","sůl","pepř","kmín"]
 ---

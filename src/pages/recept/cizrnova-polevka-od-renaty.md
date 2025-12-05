@@ -3,10 +3,9 @@ layout: "../../layouts/Recipe.astro"
 name: "Cizrnová polévka od Renaty"
 description: "Krémová a jemně kořeněná cizrnová polévka se zeleninou a zázvorem, která zahřeje i zasytí."
 tags: ["polévka", "cizrna", "zdravé jídlo", "bez masa"]
-difficulty: 2
 time: 40
-portions: 6
-portion_type: "porce"
+portions: 1
+portion_type: "hrnec"
 image: ""
 ingredients: ["2 l vody","2 mrkve","kousek celeru","1 petržel","jarní cibulka","česnek","sůl, zázvor","1 plechovka cizrny"]
 ---

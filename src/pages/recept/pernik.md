@@ -3,7 +3,6 @@ layout: "../../layouts/Recipe.astro"
 name: "Perník"
 description: "Jednoduchý a rychlý dezert"
 tags: ["rychlé","snadné","perník","pečení","sladké","dezert"]
-difficulty: 3
 time: 70
 portions: 1
 portion_type: "plech"

@@ -3,7 +3,6 @@ layout: "../../layouts/Recipe.astro"
 name: "Domácí chleba"
 description: "Tradiční domácí chléb s kombinací pšeničné a žitné mouky, křupavou kůrkou a nadýchaným vnitřkem."
 tags: ["hlavní jídlo", "pečivo", "chléb", "domácí recept"]
-difficulty: 3
 time: 180
 portions: 1
 portion_type: "bochník"

@@ -24,7 +24,6 @@ recipes = recipes.filter((recipe) =>
                     <Recipe
                             title={recipe.frontmatter.name}
                             description={recipe.frontmatter.description}
-                            difficulty={recipe.frontmatter.difficulty}
                             image={recipe.frontmatter.image}
                             link={recipe.url || "/404"}
                             time={recipe.frontmatter.time}
@@ -36,7 +35,7 @@ recipes = recipes.filter((recipe) =>
 
 <style>
     section {
-        padding: 3em;
+        padding: 1.5rem 3rem 1.5rem 3rem;
     }
 
     #recipes {

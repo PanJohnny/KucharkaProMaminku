@@ -3,10 +3,9 @@ layout: "../../layouts/Recipe.astro"
 name: "Dýňová polévka"
 description: "Krémová a voňavá dýňová polévka s mrkví, zázvorem a smetanou. Ideální na podzimní dny."
 tags: ["polévka", "dýně", "krémová", "podzimní recept"]
-difficulty: 2
 time: 40
-portions: 6
-portion_type: "porce"
+portions: 1
+portion_type: "hrnec"
 image: ""
 ingredients: ["1 dýně Hokkaido","1 cibule","1 mrkev","kousek zázvoru","rajský protlak","smetana","sůl"]
 ---

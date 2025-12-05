@@ -4,7 +4,6 @@ import { Icon } from "astro-icon/components";
 interface Content {
     name: string;
     ingredients: string[];
-    difficulty?: number /* 1-5 */;
     time?: number /* in minutes */;
     description?: string;
     image?: string;
@@ -21,20 +20,11 @@ let {
     name,
     tags,
     ingredients,
-    difficulty,
     time,
     description,
     image,
     portion_type, // @ts-ignore
 } = Astro.props["content"] as Content;
-
-if (!image) {
-    image = "/no_image.webp";
-}
-
-if (difficulty == 0) {
-    difficulty = undefined;
-}
 
 // @ts-ignore
 let { portions } = Astro.props["content"] as Content;
@@ -80,18 +70,11 @@ function pluralize(n: number, type: string): string {
                         ><Icon name="ic:baseline-access-time" /> Čas: {time} minut</span
                         >
                 )}
-                {difficulty && (
-                        <span
-                        ><Icon name="ic:outline-workspace-premium" /> Obtížnost: {
-                            difficulty
-                        }/5</span
-                        >
-                )}
             </div>
             <h3>Ingredience</h3>
             {portions && portion_type && (
                     <div class="portion-tool">
-                        Na
+                        na
                         <div class="portions">
                             <button id="dec"
                             ><Icon name="ic:baseline-keyboard-arrow-down" /></button
@@ -125,11 +108,15 @@ function pluralize(n: number, type: string): string {
                     ))
                 }
             </ul>
-            <h3>Klíčová slova</h3>
-            <div class="tags">
-                {tags.map((tag) => <div class="tag"><a href={`/tag/${tag}`}>{tag}</a></div>)}
+            <div class="keywords">
+                <h3>Klíčová slova</h3>
+                <div class="tags">
+                    {tags.map((tag) => <div class="tag"><a href={`/tag/${tag}`}>{tag}</a></div>)}
+                </div>
             </div>
-            <h3>Hodně štěstí!</h3>
+            <h3 class="postup-header">
+                Postup
+            </h3>
         </div>
     </main>
 </Layout>
@@ -154,6 +141,7 @@ function pluralize(n: number, type: string): string {
         margin: 20px;
         background-color: var(--background-color);
         padding: 2em;
+        flex: 1;
         border-radius: 12px;
     }
 
@@ -248,13 +236,104 @@ function pluralize(n: number, type: string): string {
         margin: 0;
     }
 
+    .postup-header {
+        display: none;
+    }
+
     @media screen and (max-width: 600px) {
         .basic-info {
             flex-direction: column-reverse;
         }
 
-        .recipe {
+        .recipe, .ingredients {
             margin: 10px;
+        }
+
+        .recipe {
+            margin-top: -50px;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .ingredients {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .postup-header {
+            display: inherit;
+        }
+
+        .keywords {
+            visibility: hidden;
+            height: 0;
+        }
+
+        img {
+            max-height: 200px;
+        }
+    }
+
+    @media print {
+        .basic-info {
+            flex-direction: column-reverse;
+        }
+
+        input {
+            border: none;
+        }
+
+        #dec, #inc {
+            display: none;
+        }
+
+        .portion-tool {
+            padding-bottom: 0;
+            padding-top: 3px;
+        }
+
+        #count, #ingredients {
+            border: none;
+            padding: 0;
+        }
+
+        :global(.nav, .book, footer) {
+            display: none;
+        }
+
+        :global(.container) {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        :global(h1) {
+            font-size: 40px !important;
+        }
+
+        .recipe, .ingredients{
+            margin: 10px;
+        }
+
+        .recipe {
+            margin: 0;
+            border: none;
+            padding: 0;
+        }
+
+        .ingredients {
+            margin: 0;
+            padding: 0;
+        }
+
+        .postup-header {
+            display: inherit;
+        }
+
+        .keywords {
+            visibility: hidden;
+            height: 0;
         }
 
         img {
