@@ -1,6 +1,6 @@
 ---
-import RecipeSearcher from "../../components/RecipeSearcher.astro";
 import Layout from "../../layouts/Layout.astro"
+import RecipeViewer from "../../components/RecipeViewer.astro";
 if (!Astro.cookies.has("github_token")) {
     return Astro.rewrite("/admin/login");
 }
@@ -16,7 +16,7 @@ if (!Astro.cookies.has("github_token")) {
         </div>
         <div class="float" id="edit">
             <h2>Upravte existující recept</h2>
-            <RecipeSearcher editMode/>
+            <RecipeViewer editMode />
         </div>
     </main>
 </Layout>

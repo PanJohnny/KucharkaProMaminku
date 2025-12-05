@@ -10,7 +10,7 @@ interface Props {
 const { editMode } = Astro.props as Props;
 ---
 
-<section id="recipes">
+<div>
     <div class="inputs">
         <h2>Vyhledejte recept</h2>
         <p>Při vyhledávání můžete používat názvy, klíčová slova, ingredience a popisy receptů.</p>
@@ -22,31 +22,9 @@ const { editMode } = Astro.props as Props;
         />
         <input type="button" value="Vyhledat" id="submit">
     </div>
-    {
-        recipes
-            .slice(0, 20)
-            .map((recipe) => (
-                <Recipe
-                    title={recipe.frontmatter.name}
-                    description={recipe.frontmatter.description}
-                    image={recipe.frontmatter.image}
-                    link={recipe.url || "/404"}
-                    time={recipe.frontmatter.time}
-                    editMode={editMode}
-                />
-            ))
-    }
-</section>
+</div>
 
 <style>
-    section {
-        padding: 3em;
-    }
-
-    #recipes {
-        background-color: var(--gray);
-    }
-
     @media screen and (max-width: 600px) {
         section {
             padding: 1em;
@@ -76,106 +54,3 @@ const { editMode } = Astro.props as Props;
         border-radius: 12px;
     }
 </style>
-
-<script define:vars={{ recipes }}>
-    const objs = document.querySelectorAll("[data-recipe]");
-    const search = document.querySelector("input#search");
-    const submit = document.querySelector("input#submit");
-
-    search?.addEventListener("change", () => {
-        const query = search.value;
-        searchF(query);
-    });
-
-    submit?.addEventListener("click", () => {
-        const query = search.value;
-        searchF(query);
-    })
-
-    function searchF(query) {
-        const filtered = filterRecipes(query);
-
-        objs.forEach((obj, index) => {
-            if (index < filtered.length) {
-                const recipe = filtered[index];
-                obj.querySelector("[data-pl='title']").textContent =
-                    recipe.frontmatter.name;
-                obj.querySelector("[data-pl='description']").textContent =
-                    recipe.frontmatter.description;
-                obj.querySelector(
-                    "[data-pl='difficulty']",
-                ).childNodes[1].textContent =
-                    " Obtížnost: " + recipe.frontmatter.difficulty + "/5";
-                obj.querySelector("[data-pl='image']").src = recipe.frontmatter.image;
-                obj.href = recipe.url || "/404";
-                obj.querySelector(
-                    "[data-pl='time']",
-                ).childNodes[1].textContent = " Čas: " + recipe.frontmatter.time + " minut";
-                obj.style.display = "block";
-                if (recipe.editMode) {
-                    obj.href =
-                        "/admin/edit?r=" + encodeURIComponent(recipe.url);
-                }
-            } else {
-                obj.style.display = "none";
-            }
-        });
-    }
-
-    function filterRecipes(text) {
-        /*
-        Use the following weights in order
-        name, 10
-        tags[], 4
-        ingredients[], 4
-        description 3
-
-        Filter quickly as possible and then use quicksort based on weights
-        */
-        const lowerText = text.toLowerCase();
-
-        const weights = {
-            name: 10,
-            tags: 4,
-            ingredients: 4,
-            description: 3,
-        };
-
-        const filteredRecipes = recipes
-            .map((recipe) => {
-                let score = 0;
-
-                if (recipe.frontmatter.name.toLowerCase().includes(lowerText)) {
-                    score += weights.name;
-                }
-
-                if (recipe.frontmatter.description.toLowerCase().includes(lowerText)) {
-                    score += weights.description;
-                }
-
-                if (
-                    recipe.frontmatter.tags &&
-                    recipe.frontmatter.tags.some((tag) =>
-                        tag.toLowerCase().includes(lowerText),
-                    )
-                ) {
-                    score += weights.tags;
-                }
-
-                if (
-                    recipe.frontmatter.ingredients &&
-                    recipe.frontmatter.ingredients.some((ingredient) =>
-                        ingredient.toLowerCase().includes(lowerText),
-                    )
-                ) {
-                    score += weights.ingredients;
-                }
-
-                return { ...recipe, score };
-            })
-            .filter((recipe) => recipe.score > 0)
-            .sort((a, b) => b.score - a.score);
-
-        return filteredRecipes;
-    }
-</script>

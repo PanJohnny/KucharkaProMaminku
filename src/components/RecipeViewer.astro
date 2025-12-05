@@ -5,14 +5,16 @@ let recipes = await Astro.glob("../pages/recept/*.md");
 
 interface Props {
     editMode?: boolean;
-    tagged: string;
+    tagged?: string;
 }
 
 const { editMode, tagged } = Astro.props as Props;
 
-recipes = recipes.filter((recipe) =>
-    recipe.frontmatter.tags?.includes(tagged)
-);
+if (tagged) {
+    recipes = recipes.filter((recipe) =>
+        recipe.frontmatter.tags?.includes(tagged)
+    );
+}
 ---
 
 
