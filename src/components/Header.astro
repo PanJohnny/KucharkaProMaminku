@@ -21,6 +21,8 @@ let paths: Record<string, string> = {
 if (!paths[pathName]) {
     paths[pathName] = title;
 }
+
+console.log(paths);
 ---
 
 <header>
@@ -153,14 +155,26 @@ if (!paths[pathName]) {
         top: 0;
         z-index: 1000;
         flex-direction: row-reverse;
-        justify-content: left;
+        justify-content: space-between;
         vertical-align: middle;
+        display: flex;
     }
 
     .scroll .container {
         flex-direction: row-reverse;
         padding: 0; /* Remove padding on scroll */
-        flex: 1;
+    }
+
+    .scroll .flexline {
+        flex-direction: row-reverse;
+        justify-content: left;
+        align-items: center;
+    }
+
+    .scroll .nav {
+        display: flex;
+        align-items: center;
+        margin: 0;
     }
 
     .scroll .title {
