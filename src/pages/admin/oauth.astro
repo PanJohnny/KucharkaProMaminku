@@ -1,5 +1,6 @@
 ---
 import {OAuthApp} from "octokit";
+export const prerender = false;
 const app = new OAuthApp({
     clientId: import.meta.env.GH_ID,
     clientSecret: import.meta.env.GH_SECRET,

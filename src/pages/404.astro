@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Stránka nenalezena" description="Požadovaná stránka nebyla nalezena" overwriteTitle>
+    <main>
+        <div class="island">
+            <h2>Error 404</h2>
+            <p>Omlouváme se, ale požadovaná stránka nebyla nalezena.</p>
+            <a href="/">Zpět na hlavní stránku</a>
+        </div>
+    </main>
+</Layout>
+<style>
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+        background-color: var(--gray);
+    }
+
+    .island {
+        background-color: var(--background-color);
+        padding: 2em 3em;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>

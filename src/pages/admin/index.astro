@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro"
 import RecipeViewer from "../../components/RecipeViewer.astro";
+export const prerender = false;
 if (!Astro.cookies.has("github_token")) {
     return Astro.rewrite("/admin/login");
 }

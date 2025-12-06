@@ -1,8 +1,21 @@
 ---
 import Layout from "../../layouts/Layout.astro"
 import RecipeViewer from "../../components/RecipeViewer.astro";
+import {getCollection} from "astro:content";
 
 const tag = Astro.params.tag as string;
+
+export async function getStaticPaths() {
+    const recipes = await getCollection("recipes");
+    const tagsSet = new Set<string>();
+    recipes.forEach((recipe) => {
+        recipe.data.tags?.forEach((t) => tagsSet.add(t));
+    });
+    const tags = Array.from(tagsSet);
+    return tags.map((tag) => ({
+        params: { tag: tag },
+    }));
+}
 ---
 
 <Layout title={`# ${tag[0]}`.toUpperCase() + tag.substring(1)} description={`Jídla s označením ${tag} z Oranžové kuchařky`} overwriteTitle>

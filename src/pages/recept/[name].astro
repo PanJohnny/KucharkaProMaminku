@@ -4,6 +4,12 @@ import Recipe from "../../layouts/Recipe.astro";
 
 const recipeData = await getEntry("recipes", Astro.params.name);
 
+if (!recipeData) {
+    Astro.response.status = 404;
+    Astro.response.statusText = "Not Found";
+    return Astro.rewrite("/404");
+}
+
 export async function getStaticPaths() {
   const recipes = await getCollection("recipes");
   return recipes.map((r) => ({

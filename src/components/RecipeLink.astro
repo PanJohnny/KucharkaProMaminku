@@ -3,9 +3,9 @@ import { Icon } from 'astro-icon/components'
 
 interface Props {
 	title: string;
-	time: string;
-	description: string;
-	image: string;
+	time?: number;
+	description?: string;
+	image?: string;
 	link: string;
 	editMode?: boolean;
     imageOffset?: string;
@@ -28,7 +28,7 @@ let finalLink = editMode ? "/admin/edit?r=" + encodeURIComponent(link) : link;
                 {description}
             </p>)}
 		</div>
-		{image.length > 0? <img src={image} alt={title} data-pl="image" /> :undefined}
+		{image && image.length > 0? <img src={image} alt={title} data-pl="image" /> :undefined}
 	</div>
 </a>
 

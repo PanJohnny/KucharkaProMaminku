@@ -1,5 +1,6 @@
 ---
 import { Octokit } from "octokit";
+export const prerender = false;
 
 if (!Astro.cookies.has("github_token") || Astro.request.method != "POST") {
     return new Response(undefined, { status: 401 });

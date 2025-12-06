@@ -1,6 +1,7 @@
 ---
 // for local mode
 import { writeFileSync } from "fs";
+export const prerender = false;
 
 const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "127.0.0.1";
 
