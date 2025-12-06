@@ -9,8 +9,11 @@ interface Props {
 
 let title = Astro.props.title || "Maminčina kuchařka";
 let description = Astro.props.description || "To nejlepší z rodinné kuchařky";
-
 let pathName = Astro.url.pathname;
+
+if (pathName.endsWith("/") && pathName.length > 1) {
+    pathName = pathName.substring(0, pathName.length - 1);
+}
 
 let paths: Record<string, string> = {
     "/": "Domů",
@@ -21,8 +24,6 @@ let paths: Record<string, string> = {
 if (!paths[pathName]) {
     paths[pathName] = title;
 }
-
-console.log(paths);
 ---
 
 <header>
