@@ -16,10 +16,13 @@
 
 <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
-        if (posthog.get_explicit_consent_status() === 'pending') {
-            // show a cookie banner
-            document.getElementById('cookie-banner').style.display = 'block';
-        }
+        setTimeout(() => {
+            // bad solution, but idc
+            if (posthog.get_explicit_consent_status() === 'pending') {
+                // show a cookie banner
+                document.getElementById('cookie-banner').style.display = 'block';
+            }
+        }, 1000);
     })
 
     function handleCookieConsent(consent) {
