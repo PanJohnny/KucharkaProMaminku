@@ -16,7 +16,7 @@
 
 <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
-        if (posthog && posthog.get_explicit_consent_status && posthog.get_explicit_consent_status() === 'pending') {
+        if (posthog.get_explicit_consent_status() === 'pending') {
             // show a cookie banner
             document.getElementById('cookie-banner').style.display = 'block';
         }
