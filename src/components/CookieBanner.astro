@@ -15,10 +15,12 @@
 </div>
 
 <script is:inline>
-    if (posthog && posthog.get_explicit_consent_status && posthog.get_explicit_consent_status() === 'pending') {
-        // show a cookie banner
-        document.getElementById('cookie-banner').style.display = 'block';
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+        if (posthog && posthog.get_explicit_consent_status && posthog.get_explicit_consent_status() === 'pending') {
+            // show a cookie banner
+            document.getElementById('cookie-banner').style.display = 'block';
+        }
+    })
 
     function handleCookieConsent(consent) {
         if (consent) {
