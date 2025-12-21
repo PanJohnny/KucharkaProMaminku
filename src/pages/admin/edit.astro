@@ -15,7 +15,7 @@ if (r) {
         return Astro.redirect("/ne");
     }
 
-    recipe = {...await getEntry("recipes", r.replace("/recept/", "")), url: r};
+    recipe = {...await getEntry("recipes", r.split("/").pop()), url: r};
 
     if (!recipe) {
         return Astro.redirect("/admin/");

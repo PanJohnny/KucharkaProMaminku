@@ -15,10 +15,19 @@ if (pathName.endsWith("/") && pathName.length > 1) {
 }
 
 let paths: Record<string, string> = {
-    "/": "Domů",
-    "/polevky": "Polévky",
-    "/hlavni-jidla": "Hlavní jídla",
+    "/": "Domů"
 };
+
+if (!Astro.url.pathname.startsWith("/recept/")) {
+    paths = {
+        "/": "Domů",
+        "/polevky": "Polévky",
+        "/prilohy-a-svaci": "Přílohy a sváči",
+        "/hlavni-jidla": "Hlavní jídla",
+        "/slavime": "Slavíme",
+        "/mnam": "Mňam"
+    }
+}
 
 if (!paths[pathName]) {
     paths[pathName] = title;
@@ -133,6 +142,7 @@ if (!paths[pathName]) {
         .nav {
             margin-left: 1em;
             margin-right: 1em;
+            font-size: 0.8em;
         }
 
         h1 {

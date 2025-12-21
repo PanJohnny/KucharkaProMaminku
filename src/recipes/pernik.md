@@ -1,19 +1,15 @@
 ---
-layout: "../../layouts/RecipeLink.astro"
 name: "Perník"
-description: "Jednoduchý a rychlý dezert"
-tags: ["rychlé","snadné","perník","pečení","sladké","dezert"]
-time: 70
+description: "Klasický domácí perník, který je díky kombinaci medu a mléka krásně vláčný a nadýchaný. Příprava je velmi jednoduchá a rychlá, stačí smíchat suroviny a nechat troubu vykouzlit voňavý moučník, který chutná skvěle samotný i s čokoládovou polevou."
+tags: ["perník na plech","recept na domácí perník","vláčný perník","medový perník","rychlá buchta","pečení pro začátečníky","tradiční český perník."]
+time: 80
 portions: 1
 portion_type: "plech"
 image: ""
-ingredients: ["500 ml  mléka","10 lžic oleje","2 lžíce medu","2 vejce","200 g cukru","500 g polohrubé mouky","1 kypřící prášek do perníku"]
+ingredients: ["500 ml mléka","10 lžic oleje","2 lžíce medu","2 vejce","200 g cukru","500 g polohrubé mouky","kypřící prášek do perníku"]
+category: "mňam"
 ---
 
-Tento jednoduchý recept na lahodný zákusek si oblíbí snad každý. Po upečení je dobré ho promazat marmeládou nebo na něj dát nějakou polevu (výborný je třeba politý čokoládou).
-
-## Postup
-1. Smíchejte všechny ingredience dokud nevznikne celistvá tekutá hmota.
-2. Vylijte na plech a pečte na 150-160 ˚C 45-55 minut tak aby na špejli nic nezůstalo.
-3. Nechte schladnout. Pokud chcete doplňte polivou nebo vymažte. Podávejte studené.
+1. Smíchejte všechny ingredience a nalijte na plech.
+2. Pečte při 150–160 °C asi 45–55 minut.
     

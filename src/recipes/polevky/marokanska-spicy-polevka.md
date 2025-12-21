@@ -1,11 +1,11 @@
 ---
-layout: "../../layouts/RecipeLink.astro"
-name: "Marokánská spicy polévka"
+name: "Marokánská spicovní polévka"
 description: "Aromatická a pikantní marocká polévka s čočkou, cizrnou a orientálním kořením, podávaná s řeckým jogurtem."
 tags: ["polévka", "marocká kuchyně", "pikantní", "exotické"]
 time: 50
 portions: 1
 portion_type: "hrnec"
+category: "polévka"
 image: ""
 ingredients: ["3 červené cibule","2 poloviny plechovky cizrny","koriandr","kmín","ras-el-hanout koření","uzená paprika","1 rajčatový protlak","1 l vody","300 g čočky","řecký jogurt"]
 ---

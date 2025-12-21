@@ -5,15 +5,31 @@ import RecipeLink from "../components/RecipeLink.astro";
 
 <Layout
 	title="Oranžová kuchařka"
-	description="To nejlepší z rodinné kuchařky"
+	description="Po desetiletí popsaný sešit plný receptů kdekoliv, kdykoliv"
 >
 	<main>
 		<section id="recipes">
-            <RecipeLink description="Tradiční, od babičky i exotika" link="/polevky" title="Polévky"/>
-            <RecipeLink description="Tradiční, od babičky i exotika" link="/" title="Přílohy a sváči"/>
-            <RecipeLink description="Tradiční, od babičky i exotika" link="/hlavni-jidla" title="Hlavní jídla"/>
-            <RecipeLink description="Tradiční, od babičky i exotika" link="/" title="Slavíme"/>
-            <RecipeLink description="Tradiční, od babičky i exotika" link="/" title="Mňam"/>
+            <RecipeLink description="Polévky, středočesky polívky, které vás zahřejí ve bříšku" link="/polevky" title="Polévky"/>
+            <RecipeLink description="Buď si to dáš s něčím, nebo taky samotný, ale dáš si to" link="/prilohy-a-svaci" title="Přílohy a sváči"/>
+            <RecipeLink description="Papky k véče a obědu, co ti naplněj břicho" link="/hlavni-jidla" title="Hlavní jídla"/>
+            <RecipeLink description="Slavnostní pokrmy a taky dobroty k Vánocům a jinejm svátkům" link="/slavime" title="Slavíme"/>
+            <RecipeLink description="Mňam kapitola je pouze o sladkém mňam snacku, šmaking hell" link="/mnam" title="Mňam"/>
+            <div id="welcome">
+                <p>
+                    Milá maminko, milý surfaři po webu...
+                </p>
+                <p>
+                    Vítej ve webové verzi Oranžové kuchařky, která byla po desetiletí
+                    psána rukou do oranžového sešitu. Je to sbírka vybraných
+                    receptů, sebraných od příbuzných, známých i neznámých
+                    (čti z internetu). Rozhodli jsme se tedy, že si tyto léty a
+                    bříšky ozkoušené recepty zaslouží důstojnější místo a to
+                    právě tím, že jsme tento projekt vytvořili.
+                </p>
+                <p>
+                    Pokud máte radši knížky, tak si můžete stáhnout <a href="/Oranžová%20Kuchařka.pdf">originální PDFko</a> a třeba si ho i někde vytisknout.
+                </p>
+            </div>
         </section>
 	</main>
 </Layout>
@@ -32,4 +48,11 @@ import RecipeLink from "../components/RecipeLink.astro";
 			padding: 1em;
 		}
 	}
+
+    #welcome {
+        background-color: var(--background-color);
+        padding: 2em;
+        margin-bottom: 1em;
+        border-radius: 12px;
+    }
 </style>

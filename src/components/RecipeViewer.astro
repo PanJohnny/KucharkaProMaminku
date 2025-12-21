@@ -7,13 +7,20 @@ let recipes = await getCollection("recipes");
 interface Props {
     editMode?: boolean;
     tagged?: string;
+    category?: string;
 }
 
-const { editMode, tagged } = Astro.props as Props;
+const { editMode, tagged, category } = Astro.props as Props;
 
 if (tagged) {
     recipes = recipes.filter((recipe) =>
         recipe.data.tags?.includes(tagged)
+    );
+}
+
+if (category) {
+    recipes = recipes.filter((recipe) =>
+        recipe.data.category === category
     );
 }
 
@@ -23,7 +30,6 @@ if (tagged) {
 <section id="recipes">
     {
         recipes
-            .slice(0, 20)
             .map((recipe) => (
                     <RecipeLink
                             title={recipe.data.name}

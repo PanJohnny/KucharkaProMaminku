@@ -4,7 +4,7 @@ interface Props {
     body?: string;
     link?: string;
 }
-const { frontmatter, body, link } = Astro.props as Props;
+const {frontmatter, body, link} = Astro.props as Props;
 
 function f(s: string) {
     if (frontmatter && frontmatter[s]) {
@@ -24,86 +24,95 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
             ? " (Lokální režim)"
             : ""}
     </div>
-    <input type="button" value="Otevřít aktualizující se ukázku" id="sim" />
+    <input type="button" value="Otevřít aktualizující se ukázku" id="sim"/>
+    <input type="button" value="Smazat vše" id="delete"/>
     <input
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Název"
-        value={f("name")}
-        class="title"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Název"
+            value={f("name")}
+            class="title"
     />
     <label for="description">Popis:</label>
     <input
-        type="text"
-        name="description"
-        id="description"
-        placeholder="Popis"
-        value={f("description")}
+            type="text"
+            name="description"
+            id="description"
+            placeholder="Popis"
+            value={f("description")}
     />
+    <label for="category">Kategorie:</label>
+    <select name="category" id="category">
+        <option>polévka</option>
+        <option>přílohy a sváči</option>
+        <option>hlavní jídlo</option>
+        <option>slavíme</option>
+        <option>mňam</option>
+    </select>
     <label for="image">URL obrázku:</label>
     <input
-        type="url"
-        name="image"
-        id="image"
-        placeholder="Odkaz na obrázek"
-        value={f("image")}
+            type="url"
+            name="image"
+            id="image"
+            placeholder="Odkaz na obrázek"
+            value={f("image")}
     />
     <label for="time">Čas přípravy:</label>
     <div class="line">
         <input
-            type="number"
-            name="time"
-            id="time"
-            placeholder="Čas přípravy"
-            value={f("time")}
+                type="number"
+                name="time"
+                id="time"
+                placeholder="Čas přípravy"
+                value={f("time")}
         />
         <b>min</b>
     </div>
     <label for="tags">Klíčová slova (oddělujte čárkou):</label>
     <input
-        type="text"
-        name="tags"
-        id="tags"
-        placeholder="Oddělujte čárkou"
-        value={f("tags")}
+            type="text"
+            name="tags"
+            id="tags"
+            placeholder="Oddělujte čárkou"
+            value={f("tags")}
     />
     <label for="count">Počet procí a typ porce</label>
     <div class="line">
         <input
-            type="number"
-            name="count"
-            id="count"
-            placeholder="Počet porcí"
-            value={f("portions")}
+                type="number"
+                name="count"
+                id="count"
+                placeholder="Počet porcí"
+                value={f("portions")}
         />
         <input
-            type="text"
-            name="portion_type"
-            id="portion_type"
-            placeholder="kus/porce/..."
-            value={f("portion_type")}
+                type="text"
+                name="portion_type"
+                id="portion_type"
+                placeholder="kus/porce/..."
+                value={f("portion_type")}
         />
     </div>
     <label for="body">Text:</label>
     <textarea
-        name="body"
-        id="body"
-        placeholder="Sem napište poznatky o jídle a postup">{body}</textarea
+            name="body"
+            id="body"
+            placeholder="Sem napište poznatky o jídle a postup">{body}</textarea
     >
     <label for="ingredients">Ingredience:</label>
     <textarea
-        name="ingredients"
-        id="ingredients"
-        placeholder="Jednotlivé ingredience oddělujte novými řádky"
-        >{f("ingredients")?f("ingredients").map((ing: string) => ing + "\n"):undefined}</textarea
+            name="ingredients"
+            id="ingredients"
+            placeholder="Jednotlivé ingredience oddělujte novými řádky"
+    >{f("ingredients")?f("ingredients").map((ing: string) => ing + "\n"):undefined}</textarea
     >
     <p>
         Text postupu využívá formátování markdownu, návod <a
             href="https://www.markdownguide.org/basic-syntax/">zde</a
-        >.
+    >.
     </p>
-    <input type="button" value="Odeslat změny" id="submit" />
+    <input type="button" value="Odeslat změny" id="submit"/>
 </div>
 
 <style>
@@ -129,7 +138,8 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
     }
 
     .editor input,
-    .editor textarea {
+    .editor textarea,
+    select {
         border: 1px solid var(--gray);
         border-radius: 12px;
         padding: 0.5em;
@@ -173,15 +183,20 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
         font-size: 1.2em;
         color: var(--text-color);
     }
+
+    #delete {
+        background-color: red;
+        color: white;
+    }
 </style>
 
 <script define:vars={{link, localMode}}>
-    const name = document.getElementById("name") ;
+    const name = document.getElementById("name");
     const description = document.getElementById(
         "description",
     );
-    const image = document.getElementById("image") ;
-    const time = document.getElementById("time") ;
+    const image = document.getElementById("image");
+    const time = document.getElementById("time");
     const ingredients = document.getElementById(
         "ingredients",
     );
@@ -190,9 +205,12 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
     const count = document.getElementById("count");
     const portionType = document.getElementById(
         "portion_type",
-    ) ;
+    );
 
-    const sim = document.getElementById("sim") ;
+    const category = document.getElementById("category");
+
+    const sim = document.getElementById("sim");
+    const deleteElement = document.getElementById("delete");
 
     let win = null;
     sim.addEventListener("click", () => {
@@ -201,6 +219,39 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
         // send the current recipe to the popup
         if (win) win.onload = sync;
     });
+
+    window.addEventListener("beforeunload", () => {
+        sessionStorage.setItem("savedRecipe", JSON.stringify(
+            {
+                name: name?.value,
+                description: description?.value,
+                image: image?.value,
+                time: time?.value,
+                ingredients: ingredients?.value,
+                tags: tags?.value,
+                portions: count?.value,
+                portion_type: portionType?.value,
+                category: category?.value,
+                body: body?.value,
+            }
+        ));
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (sessionStorage.getItem("savedRecipe")) {
+            const data = JSON.parse(sessionStorage.getItem("savedRecipe"));
+            name.value = data.name;
+            description.value = data.description;
+            image.value = data.image;
+            time.value = data.time;
+            ingredients.textContent = data.ingredients;
+            tags.value = data.tags;
+            count.value = data.portions;
+            portionType.value = data.portion_type;
+            category.value = data.category;
+            body.textContent = data.body;
+        }
+    })
 
     const elements = [
         name,
@@ -212,7 +263,14 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
         tags,
         count,
         portionType,
+        category
     ];
+
+    deleteElement.addEventListener("click", (e) => {
+        elements.forEach(el => {
+            el.value = "";
+        })
+    })
 
     elements.forEach((element) => {
         element.addEventListener("input", sync);
@@ -241,14 +299,13 @@ const localMode = Astro.url.hostname == "localhost" || Astro.url.hostname == "12
         );
     }
 
-    const submit = document.getElementById("submit") ;
+    const submit = document.getElementById("submit");
 
     submit.addEventListener("click", async () => {
-        const recipeLink = link ? link.split("/").pop()?.replace(".md", "") : name.value.toLowerCase().normalize('NFKD').replace(/\s+/g, "-").replace(/[^\w-]/g, '');
+        const recipeLink = link ? link.split("recept/").pop()?.replace(".md", "") : name.value.toLowerCase().normalize('NFKD').replace(/\s+/g, "-").replace(/[^\w-]/g, '');
         const data = {
             recept: recipeLink,
             raw: `---
-layout: "../../layouts/Recipe.astro"
 name: "${name.value}"
 description: "${description.value}"
 tags: ${JSON.stringify(tags.value.split(",").map((tag) => tag.trim()))}
@@ -257,6 +314,7 @@ portions: ${count.value}
 portion_type: "${portionType.value}"
 image: "${image.value}"
 ingredients: ${JSON.stringify(ingredients.value.split("\n").filter((ing) => ing.trim() !== ""))}
+category: "${category.value}"
 ---
 
 ${body.value}
@@ -277,7 +335,7 @@ ${body.value}
             dialog.close();
             dialog.remove();
             try {
-                const response = await fetch(localMode?"/admin/write":"/admin/commit", {
+                const response = await fetch(localMode ? "/admin/write" : "/admin/commit", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -287,6 +345,7 @@ ${body.value}
 
                 if (response.ok) {
                     alert("Změny byly úspěšně odeslány!");
+                    localStorage.clear();
                 } else {
                     alert("Nastala chyba při odesílání změn.");
                 }

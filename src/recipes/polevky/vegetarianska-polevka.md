@@ -1,13 +1,13 @@
 ---
-layout: "../../layouts/RecipeLink.astro"
 name: "Vegetariánská polévka"
 description: "Lehká a výživná zeleninová polévka s červenou čočkou, rajčaty a římským kmínem. Skvělá jako zdravý oběd nebo večeře."
 tags: ["polévka", "vegetariánské", "čočka", "zdravé jídlo"]
 time: 35
 portions: 1
 portion_type: "hrnec"
+category: "polévka"
 image: ""
-ingredients: ["1 zelený paprikový lusk","1 lžička římského kmínu","0,5 dl rostlinného oleje","6 loupaných rajčat","250 g červené čočky","1 zeleninový bujón","sůl, pepř","čerstvá petržel"]
+ingredients: ["1 zelený paprikový lusk","1 lžička římského kmínu","5 cl rostlinného oleje","6 loupaných rajčat","250 g červené čočky","1 zeleninový bujón","sůl", "pepř","čerstvá petržel"]
 ---
 
 1. Na oleji orestujte na kostičky nakrájený paprikový lusk s římským kmínem.

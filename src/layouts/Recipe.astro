@@ -1,10 +1,11 @@
 ---
 import Layout from "./Layout.astro";
-import { Icon } from "astro-icon/components";
+import {Icon} from "astro-icon/components";
 interface Content {
     name: string;
     ingredients: string[];
-    time?: number /* in minutes */;
+    time?: number /* in minutes */
+    ;
     description?: string;
     image?: string;
     tags: string[];
@@ -27,7 +28,7 @@ let {
 } = Astro.props["content"] as Content;
 
 // @ts-ignore
-let { portions } = Astro.props["content"] as Content;
+let {portions} = Astro.props["content"] as Content;
 
 const type_plurals: any = {
     kus: ["kusy", "kusů"],
@@ -38,6 +39,7 @@ const type_plurals: any = {
     porce: ["porce", "porcí"],
     hrnec: ["hrnce", "hrnců"],
     "bochník": ["bochníky", "bochníků"],
+    plech: ["plechy", "plechů"]
 };
 
 function pluralize(n: number, type: string): string {
@@ -58,26 +60,29 @@ function pluralize(n: number, type: string): string {
     <main class="basic-info">
         <div class="recipe">
             <div class="recipe-body">
-                <slot />
+                <slot/>
             </div>
-            {image && image.length > 0 ? <img src={image} alt={name} /> : undefined}
+            {image && image.length > 0 ? <img src={image} alt={name}/> : undefined}
         </div>
 
         <div class="ingredients">
-            <div class="recipe-info">
-                {time && (
+            {time ? (
+                    <div class="recipe-info">
                         <span
-                        ><Icon name="ic:baseline-access-time" /> Čas: {time} minut</span
+                        ><Icon name="ic:baseline-access-time"/> Čas: {time} minut</span
                         >
-                )}
-            </div>
+                    </div>
+            ) : undefined}
+
             <h3>Ingredience</h3>
             {portions && portion_type && (
                     <div class="portion-tool">
                         na
                         <div class="portions">
                             <button id="dec"
-                            ><Icon name="ic:baseline-keyboard-arrow-down" /></button
+                            >
+                                <Icon name="ic:baseline-keyboard-arrow-down"/>
+                            </button
                             >
                             <input
                                     type="number"
@@ -86,7 +91,9 @@ function pluralize(n: number, type: string): string {
                                     autocomplete="off"
                             />
                             <button id="inc"
-                            ><Icon name="ic:baseline-keyboard-arrow-up" /></button
+                            >
+                                <Icon name="ic:baseline-keyboard-arrow-up"/>
+                            </button
                             >
                         </div>
                         <span id="portion_type"
@@ -97,21 +104,27 @@ function pluralize(n: number, type: string): string {
             <ul id="ingredients">
                 {
                     ingredients.map((ingredient) => (
-                        <li>
-                            <input
-                                type="checkbox"
-                                id={ingredient}
-                                name={ingredient}
-                            />
-                            <label for={ingredient}>{ingredient}</label>
-                        </li>
+                            <li>
+                                {ingredient.startsWith("#")?(
+                                    <strong>{ingredient.substring(1).trim()}</strong>
+                                ):(
+                                        <input
+                                                type="checkbox"
+                                                id={ingredient}
+                                                name={ingredient}
+                                        />
+                                        <label for={ingredient} set:html={ingredient}></label>
+                                )}
+
+                            </li>
                     ))
                 }
             </ul>
             <div class="keywords">
                 <h3>Klíčová slova</h3>
                 <div class="tags">
-                    {tags.map((tag) => <div class="tag"><a href={`/tag/${tag}`}>{tag}</a></div>)}
+                    {tags.map((tag) =>
+                            <div class="tag"><a href={`/tag/${tag}`}>{tag}</a></div>)}
                 </div>
             </div>
             <h3 class="postup-header">
@@ -124,7 +137,7 @@ function pluralize(n: number, type: string): string {
 <style>
     .basic-info {
         display: flex;
-        flex-direction: row;
+        flex-direction: row-reverse;
         background-color: var(--gray);
     }
 
@@ -133,6 +146,7 @@ function pluralize(n: number, type: string): string {
         padding: 2em;
         border-radius: 12px;
         background-color: var(--background-color);
+        max-width: 400px;
     }
 
     .recipe {
@@ -190,6 +204,10 @@ function pluralize(n: number, type: string): string {
         margin: 5px 0;
     }
 
+    li > strong {
+        font-size: 110%;
+    }
+
     input[type="checkbox"] {
         margin-right: 10px;
     }
@@ -204,11 +222,13 @@ function pluralize(n: number, type: string): string {
         border: unset;
         outline: unset;
     }
+
     .portion-tool {
         display: flex;
         align-items: center;
         margin-bottom: 10px;
     }
+
     button {
         border: unset;
         outline: unset;
@@ -299,7 +319,7 @@ function pluralize(n: number, type: string): string {
             padding: 0;
         }
 
-        .recipe, .ingredients{
+        .recipe, .ingredients {
             margin: 10px;
         }
 
@@ -401,7 +421,7 @@ function pluralize(n: number, type: string): string {
             if (matches) {
                 let newText = originalText;
                 matches.forEach((match) => {
-                    let newNumber:any = parseInt(match) * (multiplier / originalCount);
+                    let newNumber: any = parseInt(match) * (multiplier / originalCount);
                     if (newNumber % 1 !== 0) {
                         newNumber = newNumber.toFixed(2);
                     }

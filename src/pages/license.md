@@ -38,7 +38,7 @@ Recepty uvedené v tomto projektu podléhají následujícím podmínkám:
    - Stránka je pouze poskytovatelem receptů.
    - Pokud není uvedeno jinak, tak platí následovné:
      - Při jakémkoliv využití uveďte odkud jste tento recept získali. Pokud je autor receptu uveden, tak přidejte jméno autora.
-     - Při komerčním využití je potřeba písemného souhlasu správce stránky.
+   - Pokud si myslíte, že byla porušena vaše autorská práva, prosím kontaktuje nás na emailu [janstefanca@seznam.cz](mailto:janstefanca@seznam.cz). Váš recept rádi z našich stránek odstraníme.
 
 2. **Bez záruky a odpovědnosti**  
    - Recepty jsou poskytovány "tak, jak jsou", bez jakékoli záruky či odpovědnosti za jejich použití nebo výsledky.  

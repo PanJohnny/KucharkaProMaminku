@@ -1,0 +1,81 @@
+<div id="cookie-banner" style="display: none">
+    <div class="container-flex">
+        <div class="cookie-text">
+            Používáme technologii cookies, abychom viděli, jaké recepty nejradši vaříte.
+        </div>
+        <div>
+            <button id="accept-cookie-btn" type="submit" class="accept-btn" onclick="handleCookieConsent(true)">
+                Povolit
+            </button>
+            <button id="accept-cookie-btn" type="submit" class="decline-btn" onclick="handleCookieConsent(false)">
+                Zamítnout
+            </button>
+        </div>
+    </div>
+</div>
+
+<script is:inline>
+    if (posthog && posthog.get_explicit_consent_status && posthog.get_explicit_consent_status() === 'pending') {
+        // show a cookie banner
+        document.getElementById('cookie-banner').style.display = 'block';
+    }
+
+    function handleCookieConsent(consent) {
+        if (consent) {
+            posthog.opt_in_capturing()
+        } else {
+            posthog.opt_out_capturing()
+        }
+    }
+</script>
+
+<style>
+    #cookie-banner {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--pink-dark);
+        padding: 10px;
+        border-radius: 10px;
+        color: var(--text-color);
+    }
+
+    .container-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .cookie-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    button {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .accept-btn {
+        background: var(--text-color);
+        color: white;
+    }
+
+    .decline-btn {
+        background: var(--gray);
+        color: white;
+    }
+
+    @media screen and (max-width: 840px) {
+        #cookie-banner {
+            left: 0;
+            right: 0;
+            width: calc(100vw - 20px);
+            border-radius: 0;
+            bottom: 0;
+        }
+    }
+</style>
