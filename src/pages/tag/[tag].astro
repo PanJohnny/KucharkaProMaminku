@@ -9,9 +9,13 @@ export async function getStaticPaths() {
     const recipes = await getCollection("recipes");
     const tagsSet = new Set<string>();
     recipes.forEach((recipe) => {
-        recipe.data.tags?.forEach((t) => tagsSet.add(t));
+        recipe.data.tags?.forEach((t) => {
+            if (t) {
+                tagsSet.add(t);
+            }
+        });
     });
-    const tags = Array.from(tagsSet);
+    let tags = Array.from(tagsSet);
     return tags.map((tag) => ({
         params: { tag: tag },
     }));
