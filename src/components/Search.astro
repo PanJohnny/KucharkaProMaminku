@@ -1,0 +1,157 @@
+---
+import {getCollection} from "astro:content";
+import {Icon} from "astro-icon/components";
+import RecipeLink from "./RecipeLink.astro";
+const recipes = await getCollection("recipes");
+
+---
+
+<div>
+    <button id="search-btn" title="Vyhledat na stránce">
+        <Icon name="ic:search" />
+    </button>
+    <dialog id="search-modal">
+        <button id="close-search" title="Zavřít okno">
+            <Icon name="ic:close" />
+        </button>
+        <div class="container">
+            <h2>Zadejte co hledáte</h2>
+            <input type="search" id="search" placeholder="Jídlo, přísada, ..."/>
+            <ol id="results">
+                <li>
+                    Zatím nic
+                </li>
+            </ol>
+            <ul aria-hidden="true" style="display: none;">
+                {recipes.map((recipe) => (
+                        <li data-recipe-id={recipe.id} class="recipe-li" data-recipe={JSON.stringify({...recipe.data, id: recipe.id})}>
+                            <RecipeLink {...recipe.data} title={recipe.data.name} link={"/recept/" + recipe.id} />
+                        </li>
+                ))}
+            </ul>
+        </div>
+    </dialog>
+</div>
+
+<script>
+    import MiniSearch from "minisearch";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchModal = document.getElementById("search-modal") as HTMLDialogElement;
+        if (searchModal) {
+            const search = document.getElementById("search") as HTMLInputElement;
+            const searchButton = document.getElementById("search-btn");
+            const closeButton = document.getElementById("close-search");
+
+            const resultsList = document.querySelector("#results") as HTMLOListElement;
+
+            searchButton?.addEventListener("click", () => {
+                searchModal.showModal();
+                search?.focus();
+            });
+
+            closeButton?.addEventListener("click", () => {
+                searchModal.close();
+            });
+
+            let data:any[] = [];
+
+            document.querySelectorAll(".recipe-li").forEach(li => {
+                // @ts-ignore
+                data.push(JSON.parse(li.dataset.recipe));
+            });
+
+            // description, name, ingredients, tags
+            const miniSearch = new MiniSearch({
+                fields: ["name", "description", "ingredients", "tags"],
+                storeFields: ["name"]
+            });
+
+            miniSearch.addAll(data);
+
+            search?.addEventListener("input", (e) => {
+                let text = search.value;
+                let results = miniSearch.search(text, { boost: { name: 3 }, prefix: true });
+
+                resultsList.innerHTML = "";
+
+                results.forEach((item) => {
+                    const element = document.querySelector(`[data-recipe-id="${item.id}"]`);
+
+                    if (element) {
+                        resultsList.appendChild(element.cloneNode(true));
+                    }
+                })
+            });
+
+            search?.addEventListener("keyup", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    if (resultsList.children.length > 0) {
+                        // @ts-ignore
+                        window.open(resultsList.children[0].querySelector("a").href, "_top");
+                    }
+                }
+            })
+        }
+    })
+</script>
+
+<style>
+    #search-btn, #close-search {
+        background: none;
+        color: var(--text-color);
+        outline: none;
+        border: none;
+        font-size: 1.4rem;
+        cursor: pointer;
+        padding-left: 1rem;
+    }
+
+    #close-search {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+
+    #search-modal {
+        border-radius: 12px;
+        border: 1px solid var(--text-color);
+        padding: 8px;
+        background-color: var(--pink-light);
+        width: 100%;
+        height: 100%;
+    }
+
+    #search-modal::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #search {
+        font-family: inherit;
+        font-size: inherit;
+        border: 1px solid var(--text-color);
+        color: var(--text-color);
+        outline: none;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    li, ol {
+        list-style: none;
+    }
+
+    #results {
+        width: 100%;
+        background-color: var(--gray);
+        padding: 10px;
+    }
+</style>

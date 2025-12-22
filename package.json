@@ -16,6 +16,7 @@
     "astro": "^5.16.4",
     "astro-icon": "^1.1.4",
     "marked": "^15.0.2",
+    "minisearch": "^7.2.0",
     "octokit": "^4.0.2",
     "typescript": "^5.7.2"
   }

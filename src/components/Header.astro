@@ -1,5 +1,6 @@
 ---
 import Book from "../resources/book.svg";
+import Search from "./Search.astro";
 
 interface Props {
     title?: string;
@@ -49,6 +50,7 @@ if (!paths[pathName]) {
                 ))}
             </ul>
         </nav>
+        <Search />
     </div>
     <div class="flexline">
         <div class="container">
@@ -132,6 +134,8 @@ if (!paths[pathName]) {
         margin-left: 3em;
         margin-right: 3em;
         margin-top: 2em;
+        display: flex;
+        justify-content: space-between;
     }
 
     @media screen and (max-width: 700px) {

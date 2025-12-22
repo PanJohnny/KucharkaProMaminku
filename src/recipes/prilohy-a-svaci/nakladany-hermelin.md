@@ -1,7 +1,7 @@
 ---
 name: "Nakládaný hermelín"
 description: "Hospodská klasika, která se hodí i k svačině"
-tags: ["příloha","brambory","tradiční","česká kuchyně","halušky"]
+tags: ["česká kuchyně", "hospoda", "k pivu", "sýr", "hermelín"]
 time: 0
 portions: 4
 portion_type: "kus"

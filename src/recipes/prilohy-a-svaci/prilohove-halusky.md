@@ -1,6 +1,6 @@
 ---
 name: "Přílohové halušky"
-description: "Jednoduché a tradiční bramborové halušky z nastrouhaných brambor, vajec a mouky. Skvělé jako příloha nebo hlavní jídlo."
+description: "Jednoduché a tradiční halušky z mouky, vajec a mouky. Skvělé jako příloha nebo hlavní jídlo."
 tags: ["příloha", "halušky", "tradiční", "česká kuchyně"]
 time: 30
 image: ""

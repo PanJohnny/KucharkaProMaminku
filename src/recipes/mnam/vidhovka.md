@@ -1,5 +1,5 @@
 ---
-name: "Buchta"
+name: "Vidhovka"
 description: "Jednoduchá a rychlá ovocná buchta, která je ideální pro využití sezónního ovoce. Díky vyváženému poměru surovin vznikne lehké těsto, které se skvěle doplňuje s kyselostí čerstvých plodů."
 tags: ["vidhovka","ovocná buchta","rychlý koláč","recept na plech","jednoduché pečení","buchta s ovocem","moučník ke kávě"]
 time: 40
