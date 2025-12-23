@@ -4,6 +4,7 @@ import {Icon} from "astro-icon/components";
 import RecipeLink from "./RecipeLink.astro";
 const recipes = await getCollection("recipes");
 
+let firstFive = recipes.slice(0, 5);
 ---
 
 <div>
@@ -15,12 +16,21 @@ const recipes = await getCollection("recipes");
             <Icon name="ic:close" />
         </button>
         <div class="container">
-            <h2>Zadejte co hledáte</h2>
-            <input type="search" id="search" placeholder="Jídlo, přísada, ..."/>
+            <h2><label for="search">Zadejte co hledáte</label></h2>
+            <input type="search" id="search" list="suggestions" placeholder="Jídlo, přísada, ..."/>
+            <datalist id="suggestions">
+                {recipes.map((recipe) => (
+                        <option value={recipe.data.name}>
+
+                        </option>
+                ))}
+            </datalist>
             <ol id="results">
-                <li>
-                    Zatím nic
-                </li>
+                {firstFive.map((recipe) => (
+                        <li>
+                            <RecipeLink {...recipe.data} title={recipe.data.name} link={"/recept/" + recipe.id} />
+                        </li>
+                ))}
             </ol>
             <ul aria-hidden="true" style="display: none;">
                 {recipes.map((recipe) => (
@@ -71,7 +81,7 @@ const recipes = await getCollection("recipes");
 
             search?.addEventListener("input", (e) => {
                 let text = search.value;
-                let results = miniSearch.search(text, { boost: { name: 3 }, prefix: true });
+                let results = miniSearch.search(text, { boost: { name: 3 }, prefix: true, fuzzy: 0.2 });
 
                 resultsList.innerHTML = "";
 
@@ -153,5 +163,6 @@ const recipes = await getCollection("recipes");
         width: 100%;
         background-color: var(--gray);
         padding: 10px;
+        min-height: 80vh;
     }
 </style>
