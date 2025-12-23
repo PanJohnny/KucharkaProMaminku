@@ -26,6 +26,7 @@
     })
 
     function handleCookieConsent(consent) {
+        document.getElementById('cookie-banner').style.display = 'none';
         if (consent) {
             posthog.opt_in_capturing()
         } else {
