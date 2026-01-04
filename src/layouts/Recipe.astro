@@ -403,7 +403,7 @@ function pluralize(n: number, type: string): string {
     const ingredients = document.querySelector("#ingredients");
     // original list, only the current innerText of each li
     const originalList: string[] = [];
-    ingredients?.querySelectorAll("li").forEach((li) => {
+    ingredients?.querySelectorAll("li > label").forEach((li) => {
         originalList.push(li.innerText);
     });
 
@@ -417,6 +417,7 @@ function pluralize(n: number, type: string): string {
             if (!originalText) {
                 return;
             }
+            console.log()
             const matches = originalText.match(/\d+/g);
             if (matches) {
                 let newText = originalText;

@@ -6,7 +6,7 @@ time: 120
 portions: 1
 portion_type: "kus"
 image: ""
-ingredients: ["#Těsto","500 g hladké mouky","150 g cukru","50 g másla","5 lžic mléka","2 lžíce medu","1⁄2 lžičky sody","2 vejce","#Krém","250 g másla","150 g cukru","vanilkový pudink (uvařený dle návodu)","marmeláda","#Ganache","200 g smetany na šlehání","200 g čokolády na vaření"]
+ingredients: ["#Těsto","500 g hladké mouky","150 g cukru","50 g másla","5 lžic mléka","2 lžíce medu","1 polovina lžičky sody","2 vejce","#Krém","250 g másla","150 g cukru","vanilkový pudink (uvařený dle návodu)","marmeláda","#Ganache","200 g smetany na šlehání","200 g čokolády na vaření"]
 category: "slavíme"
 ---
 
